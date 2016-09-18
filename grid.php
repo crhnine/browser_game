@@ -151,18 +151,18 @@ $(function (){
 
              $print_cell = ($height / 100) * ($width / 100);
              echo '<div style="width:100%;margin-left:35px;margin-right:35px;margin-bottom:35px;">';//Overall Container
-             echo '<div style="margin:0 auto;width:'.$shell_width.'px;">';//Centering Container
-             echo '<div style="width:'.$top_bottom_border_width.';height:'.$border_setting.'px;padding-bottom:10px;background-color:#303030;background-image:url(\'img/tree.png\');background-repeat:repeat-x;"></div>';//Top
-             echo '<div style="width:'.$border_setting.'px;height:'.$right_left_border_height.'px;float:left;padding-right:10px;background-color:#303030;background-image:url(\'img/tree.png\');background-repeat:repeat-y;overflow:visible;"></div>';//Left
+             echo '<div style="margin:0 auto;width:'.$shell_width.'px;background-image:url(\'img/campaign_green_field_cover_no_fade.png\');">';//Centering Container
+             echo '<div class="border" style="width:'.$top_bottom_border_width.';height:'.$border_setting.'px;padding-bottom:10px;background-color:#303030;background-image:url(\'img/tree.png\');background-repeat:repeat-x;"></div>';//Top
+             echo '<div class="border" style="width:'.$border_setting.'px;height:'.$right_left_border_height.'px;float:left;padding-right:10px;background-color:#303030;background-image:url(\'img/tree.png\');background-repeat:repeat-y;overflow:visible;"></div>';//Left
              echo '<div style="width:'.$width.'px;height:'.$height.'px;float:left;">';//Grid Container
                         while($print_cell > 0){
                         echo '
-                          <div class="cell_container" style="float:left;margin-bottom:1px;">
+                          <div class="cell_container" style="float:left;margin-bottom:1px;overflow:visible;">
 
-                            <div class="zone_container box box_01 top_box" id="'.$row_initial .$cell_initial .$subset_array[0].'inner" style="border:1px solid grey;height:47px;width:47px;margin-right:1px;float:left;position:relative;z-index:30;"><div class="character_placement" id="'.$row_initial .$cell_initial .$subset_array[0].'" style="position:absolute;z-index:31;width:47px;height:65px;border:1px solid red;margin-top:-27px;margin-left:10px;"></div><div class="coordinate_display" style="width:100%;height:20px;"><div class="" id="'.$row_initial.'" style="float:left;">'.$row_initial.'</div><div id="'.$cell_initial.'" style="float:left;">'.$cell_initial.'</div><div id="'.$subset_array[0].'" style="float:left;">'.$subset_array[0].'</div></div></div>
-                            <div class="zone_container box box_01 top_box" id="'.$row_initial .$cell_initial .$subset_array[1].'inner" style="border:1px solid grey;height:47px;width:47px;margin-right:1px;float:left;position:relative;z-index:30;"><div class="character_placement" id="'.$row_initial .$cell_initial .$subset_array[1].'" style="position:absolute;z-index:31;width:47px;height:65px;border:1px solid red;margin-top:-27px;margin-left:10px;"></div><div class="coordinate_display" style="width:100%;height:20px;"><div id="'.$row_initial.'" style="float:left">'.$row_initial.'</div><div id="'.$cell_initial.'" style="float:left;">'.$cell_initial.'</div><div id="'.$subset_array[1].'" style="float:left;">'.$subset_array[1].'</div></div></div><br /><br /><br />
-                            <div class="zone_container box box_02 bottom_box" id="'.$row_initial .$cell_initial .$subset_array[2].'inner" style="border:1px solid grey;height:47px;width:47px;margin-right:1px;margin-top:-3px;float:left;position:relative;z-index:30;"><div class="character_placement" id="'.$row_initial .$cell_initial .$subset_array[2].'" style="position:absolute;z-index:31;width:47px;height:65px;border:1px solid red;margin-top:-27px;margin-left:10px;"></div><div class="coordinate_display" style="width:100%;height:20px;"><div id="'.$row_initial.'" style="float:left">'.$row_initial.'</div><div id="'.$cell_initial.'" style="float:left;">'.$cell_initial.'</div><div id="'.$subset_array[2].'" style="float:left;">'.$subset_array[2].'</div></div></div>
-                            <div class="zone_container box box_02 bottom_box" id="'.$row_initial .$cell_initial .$subset_array[3].'inner" style="border:1px solid grey;height:47px;width:47px;margin-right:1px;margin-top:-3px;float:left;position:relative;z-index:30;"><div class="character_placement" id="'.$row_initial .$cell_initial .$subset_array[3].'" style="position:absolute;z-index:31;width:47px;height:65px;border:1px solid red;margin-top:-27px;margin-left:10px;"></div><div class="coordinate_display" style="width:100%;height:20px;"><div id="'.$row_initial.'" style="float:left">'.$row_initial.'</div><div id="'.$cell_initial.'" style="float:left;">'.$cell_initial.'</div><div id="'.$subset_array[3].'" style="float:left;">'.$subset_array[3].'</div></div></div>
+                            <div class="zone_container box box_01 top_box" id="'.$row_initial .$cell_initial .$subset_array[0].'inner" style="border:1px solid grey;height:47px;width:47px;margin-right:1px;float:left;position:relative;z-index:30;overflow:visible"><div class="character_placement" id="'.$row_initial .$cell_initial .$subset_array[0].'" style="position:absolute;z-index:31;width:47px;height:65px;border:1px solid red;margin-top:-27px;margin-left:10px;overflow:visible;"></div><div class="coordinate_display" style="width:100%;height:20px;overflow:visible"><div class="" id="'.$row_initial.'" style="float:left;">'.$row_initial.'</div><div id="'.$cell_initial.'" style="float:left;">'.$cell_initial.'</div><div id="'.$subset_array[0].'" style="float:left;">'.$subset_array[0].'</div></div></div>
+                            <div class="zone_container box box_01 top_box" id="'.$row_initial .$cell_initial .$subset_array[1].'inner" style="border:1px solid grey;height:47px;width:47px;margin-right:1px;float:left;position:relative;z-index:30;overflow:visible"><div class="character_placement" id="'.$row_initial .$cell_initial .$subset_array[1].'" style="position:absolute;z-index:31;width:47px;height:65px;border:1px solid red;margin-top:-27px;margin-left:10px;overflow:visible;"></div><div class="coordinate_display" style="width:100%;height:20px;overflow:visible"><div id="'.$row_initial.'" style="float:left">'.$row_initial.'</div><div id="'.$cell_initial.'" style="float:left;">'.$cell_initial.'</div><div id="'.$subset_array[1].'" style="float:left;">'.$subset_array[1].'</div></div></div><br /><br /><br />
+                            <div class="zone_container box box_02 bottom_box" id="'.$row_initial .$cell_initial .$subset_array[2].'inner" style="border:1px solid grey;height:47px;width:47px;margin-right:1px;margin-top:-3px;float:left;position:relative;z-index:30;overflow:visible"><div class="character_placement" id="'.$row_initial .$cell_initial .$subset_array[2].'" style="position:absolute;z-index:31;width:47px;height:65px;border:1px solid red;margin-top:-27px;margin-left:10px;overflow:visible;"></div><div class="coordinate_display" style="width:100%;height:20px;overflow:visible"><div id="'.$row_initial.'" style="float:left">'.$row_initial.'</div><div id="'.$cell_initial.'" style="float:left;">'.$cell_initial.'</div><div id="'.$subset_array[2].'" style="float:left;">'.$subset_array[2].'</div></div></div>
+                            <div class="zone_container box box_02 bottom_box" id="'.$row_initial .$cell_initial .$subset_array[3].'inner" style="border:1px solid grey;height:47px;width:47px;margin-right:1px;margin-top:-3px;float:left;position:relative;z-index:30;overflow:visible"><div class="character_placement" id="'.$row_initial .$cell_initial .$subset_array[3].'" style="position:absolute;z-index:31;width:47px;height:65px;border:1px solid red;margin-top:-27px;margin-left:10px;overflow:visible;"></div><div class="coordinate_display" style="width:100%;height:20px;overflow:visible"><div id="'.$row_initial.'" style="float:left">'.$row_initial.'</div><div id="'.$cell_initial.'" style="float:left;">'.$cell_initial.'</div><div id="'.$subset_array[3].'" style="float:left;">'.$subset_array[3].'</div></div></div>
 
                           </div>
               
@@ -185,8 +185,8 @@ $(function (){
 
 
              echo '</div>';//Grid Container
-             echo '<div style="width:'.$border_setting.'px;height:'.$right_left_border_height.'px;float:left;padding-left:10px;background-color:#303030;"></div>';//Right
-             echo '<div style="width:'.$top_bottom_border_width.';height:'.$border_setting.'px;margin-top:40px;padding-top:10px;background-color:#303030;clear:both;position:relative;z-index:34;"></div>';//Bottom
+             echo '<div class="border" style="width:'.$border_setting.'px;height:'.$right_left_border_height.'px;float:left;padding-left:10px;background-color:#303030;background-image:url(\'img/tree.png\');background-repeat:repeat-y;"></div>';//Right
+             echo '<div class="border" style="width:'.$top_bottom_border_width.';height:'.$border_setting.'px;margin-top:40px;padding-top:10px;background-color:#303030;clear:both;position:relative;z-index:34;background-image:url(\'img/tree.png\');background-repeat:repeat-x;"></div>';//Bottom
              echo '</div>';//Centering Container
              echo '</div>';//Overall Container
 ?>
@@ -291,6 +291,7 @@ var test_coordinate = document.getElementById('12Cinner');
 var test_coordinate02 = document.getElementById('44Ainner');
 
 var character_location = document.getElementById('14A');
+var boulder_location = document.getElementById('14C');
 
 
 test_coordinate.style.backgroundColor = "red";
@@ -298,6 +299,10 @@ test_coordinate02.style.backgroundColor = "blue";
 
 character_location.style.backgroundImage = "url('img/test_image.png')";
 character_location.style.backgroundSize = "50px 65px";
+
+boulder_location.innerHTML = "<img src='img/boulder.png' />";
+boulder_location.style.backgroundSize = "100px 100px";
+boulder_location.style.overflow = "visible";
 
 
 var subset_array = [
@@ -344,18 +349,21 @@ var new_current_coordinate = 0;
                 red_box_01[l].style.border = "1px solid red";
                 red_box_01[l].style.height = "65px";
                 red_box_01[l].style.width = "47px";
-
-
                                                       }
-
                 var coordinate_display = document.getElementsByClassName("coordinate_display");
                 var m;
                 for(m = 0; m < coordinate_display.length; m++){
 
                 coordinate_display[m].style.display = "inline-block";
+                }           
+
+                var border_01 = document.getElementsByClassName("border");
+                var p;
+                for(p = 0; p < border_01.length; p++){
+
+                border_01.style.backgroundColor = "#303030";
 
                 }
-            
             }
 
 
@@ -386,6 +394,14 @@ var new_current_coordinate = 0;
                 for(n = 0;n < coordinate_display_01.length;n++){
 
                 coordinate_display_01[n].style.display = "none";
+
+                var border = document.getElementsByClassName("border");
+                var o;
+                for(o = 0; o < border.length; o++){
+
+                border[o].style.backgroundColor = "transparent";
+
+                }
 
                 }
             }
