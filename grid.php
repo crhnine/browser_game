@@ -200,8 +200,8 @@ $(function (){
 </body>
 
 
-<script src="https://npmcdn.com/react@15.3.1/dist/react.js"></script>
-<script src="https://npmcdn.com/react-dom@15.3.1/dist/react-dom.js"></script>
+<script src="https://unpkg.com/react@15.3.1/dist/react.js"></script>
+<script src="https://unpkg.com/react-dom@15.3.1/dist/react-dom.js"></script>
 
 <!-------------------------------------------------------------------------------------------->
 <!--^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-->
