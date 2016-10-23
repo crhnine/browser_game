@@ -210,8 +210,13 @@ echo '</div>';//Overall Container
         <!-- -->
         <!-- </div>-->
 
+<<<<<<< HEAD
 </div>
 </body>
+=======
+<script src="https://unpkg.com/react@15.3.1/dist/react.js"></script>
+<script src="https://unpkg.com/react-dom@15.3.1/dist/react-dom.js"></script>
+>>>>>>> f81ba78ffaeb70628dc2c2e2eb3f6e902853d2a9
 
 
 <!--<script src="https://npmcdn.com/react@15.3.1/dist/react.js"></script>
