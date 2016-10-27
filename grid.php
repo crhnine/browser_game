@@ -1,11 +1,25 @@
 <!-- http://legithtml.com/plugins/grid.php -->
 <?php
+    
+   if(!filter_input(INPUT_POST, 'width', FILTER_SANITIZE_STRING)){
+       
+       echo 'Set width is not a proper input';
+   }
+   else{
 
-
-   $grid_set_width = $_POST['width'];
-   $grid_set_height = $_POST['height'];
-   $height = 3000;//$grid_set_height * 100;//This height is based on pixels; Needs to be a division of 100 even.
-   $width = 3000;//$grid_set_width * 100;//This width is based on pixels;
+   $grid_set_width = filter_input(INPUT_POST,'width', FILTER_SANITIZE_STRING);
+   }
+   
+   if(!filter_input(INPUT_POST, 'height', FILTER_SANITIZE_STRING)){
+       
+       echo 'Set height is not a proper input';
+   }
+   else{
+   $grid_set_height = filter_input(INPUT_POST,'height', FILTER_SANITIZE_STRING);
+   
+   }
+   $height = 3000;//$grid_set_height;//This height is based on pixels; Needs to be a division of 100 even.
+   $width = 3000;//$grid_set_width;//This width is based on pixels;
    $border_setting = 50;
    $top_bottom_border_width = $width + ($border_setting * 2);
    $shell_width = $top_bottom_border_width + 20;
@@ -194,23 +208,8 @@ echo '</div>';//Overall Container
         <!--<div id="testing_container"> -->
         <h4>Current character placement</h4>
         <div id="output_box" style="width:50px;height:50px;"></div><br/>
-        
-        <!-- <h4>Current character placement split</h4>
-        <h5>Splits are necessary on the ids so later I can access the indeces of the split and conduct my math.</h5>
-        <div id="split_output_box" style="width:50px;height:50px;"></div><br/><br/>
-        
-        <h4>All grids currently shown</h4>
-        <div id="output_grids_id" style="width:100px;border:1px solid red;padding:20px;"></div><br/>
-        
-        <h4>All grids split by "_"</h4>
-        <div id="split_grids_id" style="width:100px;border:1px solid blue;padding:20px;"></div>
-        
-        <h4>Check scp output</h4>
-        <div id='check_scp_output' style='width:100px;height:100px;padding:20px;'></div>-->
-        <!-- -->
-        <!-- </div>-->
-
-
+        <!-- Debugging location checks -->
+        <!-- <h4>Current character placement split</h4><h5>Splits are necessary on the ids so later I can access the indeces of the split and conduct my math.</h5><div id="split_output_box" style="width:50px;height:50px;"></div><br/><br/><h4>All grids currently shown</h4><div id="output_grids_id" style="width:100px;border:1px solid red;padding:20px;"></div><br/><h4>All grids split by "_"</h4><div id="split_grids_id" style="width:100px;border:1px solid blue;padding:20px;"></div><h4>Check scp output</h4><div id='check_scp_output' style='width:100px;height:100px;padding:20px;'></div></div>-->
 </div>
 </body>
 <!-- 
@@ -237,4 +236,64 @@ applied specifically to that square. ID's cannot have space characters.
 <script src="js/player_movement.js"></script>
 <!--Debugging -->
 <script src="js/debug.js"></script>
+<script>
+    
+//Object placement locations
+//var boulder_location = document.getElementById('grid_1_4_C_inner');//Beginning example of object placement on map. Selected coordiate is top left and automatically prevents player intrusion. Create variables to receive ids of impassable areas. 
+//boulder_location.innerHTML = "<img src='img/boulder.png' />";
+//boulder_location.style.backgroundSize = "100px 100px";
+//boulder_location.style.overflow = "visible";
+
+
+//Name the coordinates here and then later we can split the ids as needed or just pull them straight from this array.
+var object_location = [
+    
+    "grid_1_4_C_inner",
+    "grid_1_4_D_inner",
+    "grid_2_4_A_inner",
+    "grid_2_4_B_inner"
+    
+]; 
+ //01 of every variable has to contain the image needed and be the top left of the location needed. Easy just use [0] index of array.
+ //Need to be able to define in a variable how many squares the image will take up and automate from there the ids of the squares needed as object location.
+      
+            
+        var first_object_location = document.getElementById(object_location[0]);
+            first_object_location.innerHTML = "<img src='img/boulder.png' />";
+            first_object_location.backgroundSize = "100px 100px";
+            first_object_location.style.overflow = "visible";
+            
+    
+        var j;
+        for(j = 0;j < object_location.length;j++){
+            var d = document.getElementById(object_location[j]);
+            d.className += " impassable";
+
+//          var collect_object_location = document.getElementById(object_location[j]);
+//          var split_object_location = collect_object_location.split("_");
+
+        }
+//        var old_character_placement_id = character_placement; 
+//        var new_character_placement_id;
+//
+//        var find_impassable = document.getElementsByClassName("impassable");//This id will never equal that of character_placement id simply because of _inner
+//        var k;
+//        for(k = 0;k < find_impassable.length; k++){
+//            
+//           var find_impassable_id  = find_impassable[k].id;
+//           var sfi_id = find_impassable_id.split("_");
+//           var scp_id_02 = new_character_placement_id.split("_");//Re-split new_character_placement_id and give unique variable name.
+//           
+//           var esfi_id = sfi_id[0] + sfi_id[1] + sfi_id[2] + sfi_id[3];//"Equality split_find_impassable_id"
+//           var escp_id_02 = scp_id_02[0] + scp_id_02[1] + scp_id_02[2] + scp_id_02[3];
+//           
+//           if(esfi_id === escp_id_02){
+//               
+//               new_character_placement_id = old_character_placement;
+//               
+//           }
+//        }
+ 
+ //TO DO: Build a way to keep the player for the most part centered on the screen when moving. 
+</script>
 <!------------------------------------------------------------------------------>
