@@ -1,5 +1,9 @@
-           var initial_spawn = document.getElementById('grid_1_4_A');//Player Starting point subject to be changed based on map or random selection between a few points to possibly add challenge.
+// JavaScript source code
+           //Player Starting point subject to be changed based on map or random selection between a few points to possibly add challenge.
+           var initial_spawn = document.getElementById('grid_3_6_B');
            initial_spawn.className = "character_placement red_background";
+           
+           //Preparation for movement
            var letter_indeces = [
                 
                 "A",
@@ -8,57 +12,77 @@
                 "D"
             ];
             
-            //All coordinates
+            //All existing coordinates with character_placement. Upper containers.
             var find_grid = document.getElementsByClassName("character_placement");
             var i;
-            for(i = 0;i < find_grid.length;i++){
-                
-               
-                //This displays the coordinate id of all of the grid boxes;
-                //document.getElementById('output_grids_id').innerHTML += find_grid[i].id + "<br />";
+            for(i = 0;i < find_grid.length;i++){   
+                var split_id_string = find_grid[i].id;
+                var split_id = split_id_string.split("_"); 
                 
                 //This section splits all of the ids at the "_" character and places them into an array. [0] = "grid",...;
-                var split_id_string = find_grid[i].id;
-                var split_id = split_id_string.split("_");
-                //document.getElementById('split_grids_id').innerHTML += split_id + "<br/>";
-                
-            }
-            //This just tracks where the player is in relation to a class name;
+                //document.getElementById('output_grids_id').innerHTML += find_grid[i].id + "<br />";
+            }//All existing coordinates with character_placement. Upper containers split.
+            
+            //Onload find current container with red_background class.
             var find_location = document.getElementsByClassName("red_background");
             var character_placement = find_location[0].id;
             var split_character_placement = character_placement.split("_");
+            document.getElementById('output_box').innerHTML = character_placement;//Display 1
             
-            //This displays the coordinate id of the character placement;
-            document.getElementById('output_box').innerHTML = character_placement;
+            //This displays the coordinate id of the character placement in the console;
+
             //This displays the split coordinate id of the character placement;
             //document.getElementById('split_output_box').innerHTML = split_character_placement;
+            /////////////////////////////////////////////////////////
+            //Three things are needed to create an impassable barrier
+                /*
+                 * 1. Impassable locations into an array. (impassable_locations_array)
+                 * 2. Starting position of player during keypress. (character_placement) Need to re-add "red_background" class.
+                 * 3. Where the player would be going if the keypress were successful.  
+                 */
+            /////////////////////////////////////////////////////////
             
-            
-            //What we need to do is this:
-            /*
-             * 
-             * 1. Split the id based on "_";
-             * 2. This will put "grid", "1", "4", and "A" into an array for initial grid with 0 never changing;
-             * 3. Create an array for the [3] index or letters so numbers can be used. OR go back and change the subsets to numbers...either way works.
-             * 4. On keypress of "D" (right) Add 1 to the [2] of the string array IF [3] == [1] OR [3] in its own index which are the only instances column number can increase;
-             * 5. Retreive typeof of requested id and if it is undefined reset the needed id back to what it last was.
-             */
-            
-            
+            //Set function to receive input
             function character_movement(e){
+                keyCode_right:
+                if(e.keyCode === 68){ //keyCode_D Move_right                     
+                    //
+                    //keyCode_right original location
+                    //
+                    //keyCode_D find current container with red_background class.
+                    var find_location = document.getElementsByClassName("red_background");
+                    var original_placement = find_location[0].id;
+                    console.log("Find originating character placement: " + original_placement);//Display 2
                 
-                if(e.keyCode === 68){//Move right on keypress of "d" WORKING
-                        
+                    var split_original_placement = original_placement.split("_");
+                    //Assign each part of the original placement id to separate parts.
+                    //Grid is unnecessary
+                    var sop_row = split_original_placement[1];//1, 2, 3, or 4
+                    var sop_column = split_original_placement[2];//1, 2, 3, or 4
+                    var sop_letter = split_original_placement[3];//A, B, C, or D
+                    //No_inner
+                    var original_character_placement_id = sop_row + sop_column + sop_letter;
+                    console.log("Original placement split: " + split_original_placement);//Display 3
+                    console.log("Original placement reformed: " + original_character_placement_id);
+                    //Original placement is now in impassable location form and ready to compare. Access original_placement for resetting character position.
+                    
+                    ///////////////////////////////////////////////////////////////////////////
+                    ///////////////////////////////////////////////////////////////////////////
+                    if(sop_letter === letter_indeces[0]){//Move Right A ===> B no column change 
+                    //
+                    //keyCode_right impassable
+                    //
                     var impassable_locations_array = [];
                     var find_impassable = document.getElementsByClassName("impassable");//This id will never equal that of character_placement id simply because of _inner
+                    
                     var k;
                     var l;
-                    var pseudo_array_length_01 = 4;
+                    var pseudo_array_length_01 = 8;
                     for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
                             console.log(find_impassable[k].id);
                             var find_impassable_id = find_impassable[k].id;
-                            stringify_find_impassable_id = find_impassable_id.toString();
-                            sfi_id = stringify_find_impassable_id.split("_");
+                            var stringify_find_impassable_id = find_impassable_id.toString();
+                            var sfi_id = stringify_find_impassable_id.split("_");
 
 
                             var impassable_row_initial = sfi_id[1];
@@ -66,621 +90,1339 @@
                             var impassable_subset_array = sfi_id[3];
                           
                             var impassable_locations = impassable_row_initial + impassable_cell_initial + impassable_subset_array;
-
-                            impassable_locations_array.push(impassable_locations);
-                            console.log("ila  " + impassable_locations_array[l]);
-                    }//All impassable locations have been pulled successfully from this script.
-                    
-                    //Three things are needed to create an impassable barrier
-                    /*
-                     * 1. Impassable locations into an array. (impassable_locations_array)
-                     * 2. Starting position of player during keypress. (character_placement) Need to re-add "red_background" class.
-                     * 3. Where the player would be going if the keypress were successful.  
-                     */
-                        
-                    //This finds the current element with the class of red_background. In this example there will be only one element with this particular class at any given time.
-                    var find_location = document.getElementsByClassName("red_background");
-                    
-                    var character_placement = find_location[0].id;
-                    document.getElementById(character_placement).className = "character_placement";//Officially removes red_background class from the original or previous character placement coordinate;
-                   
-                    var split_character_placement = character_placement.split("_");//Id of character placement is now in in array;
-                    
-                    var scp_grid = split_character_placement[0];//grid
-                    var scp_row_initial = split_character_placement[1];//1, 2, 3, or 4
-                    var scp_cell_initial = split_character_placement[2];//1, 2, 3, or 4
-                    var scp_subset_array = split_character_placement[3];//A, B, C, or D Needs to be checked what letter_indeces does this match?
-                    
-                    //document.getElementById('check_scp_output').innerHTML = scp_grid + scp_row_initial + scp_cell_initial + scp_subset_array + "<br/>" + letter_indeces[0] + letter_indeces[1] + letter_indeces[2] + letter_indeces[3];
-                    
-                    var new_scp_grid = scp_grid;//grid
-                    var new_scp_row_initial;
-                    var new_scp_cell_initial;
-                    var new_scp_subset_array;
-                    var original_character_placement_id;
-                    var new_character_placement_id;
-                    
-                    if(scp_subset_array === letter_indeces[1]){//Subset B ===> A Column change
-
-                        //Write logic here to add 1 to cell_initial in the character placement and set character placement as needed;
-                        //Once added 1 to cell_initial we need to reform all four id representatives and then stylize the given coordinate's id with red background.
-                        //new_character_placement_id is to be new id for the cell the character moves to;
-                        new_scp_row_initial = parseInt(scp_row_initial);//All scp are in string format, convert to integer for math.
-                        new_scp_row_initial = new_scp_row_initial.toString();
-                        
-                        scp_cell_initial = parseInt(scp_cell_initial);//All scp are in string format, convert to integer for math.
-                        new_scp_cell_initial = scp_cell_initial + 1;
-                        new_scp_cell_initial = new_scp_cell_initial.toString();                                              
-                                                
-                        new_scp_subset_array = letter_indeces[0];
-                        
-                        original_character_placement_id = split_character_placement[0] + "_" + split_character_placement[1] + "_" + split_character_placement[2] + "_" + split_character_placement[3];
-                        new_character_placement_id = new_scp_grid + "_" + new_scp_row_initial + "_" + new_scp_cell_initial + "_" + new_scp_subset_array;
-                        
-                        if(!document.getElementById(new_character_placement_id)){//This is close to what we are going to need to define impassable boundaries. 
-
-                            document.getElementById(original_character_placement_id).className = "character_placement red_background";
-                        }
-                        
-                        var new_character_placement_check = new_scp_row_initial + new_scp_cell_initial + new_scp_subset_array;
-                        var m;
-                        for(m = 0;m < impassable_locations_array.length;m++){
-                            var compare_01 = new_character_placement_check.toString();
-                            var compare_02 = impassable_locations_array[m].toString();
+                            var string_impassable_locations = impassable_locations.toString();//Ensure impassable locations typing is set to string
+                            impassable_locations_array.push(string_impassable_locations);
+                            console.log("Impassable location array  " + impassable_locations_array[l]);//Display 4
+                            //All impassable locations have been pulled successfully from this script. End for loop impassable
+                            //Format for impassable locations array = 14C, 14D, 24A, 24B, etc...
                             
-                            console.log("Type of comparisons: " + typeof(compare_01) + " " + typeof(compare_02))
-                            var string_comparison = compare_01.localeCompare(compare_02);
-                            console.log("String comparison" + string_comparison);
+                            var sop_row_parse = parseInt(sop_row); 
+                            var sop_column_parse = parseInt(sop_column);
                             
-                            while(string_comparison === 0){
+                            var new_sop_row = sop_row_parse;
+                            var new_sop_column = sop_column_parse;
+                            var new_sop_letter = letter_indeces[1];
+                            
+                            var new_sop_row_string = new_sop_row.toString();
+                            var new_sop_column_string = new_sop_column.toString();
+                            
+                            var new_placement = new_sop_row_string + new_sop_column_string + new_sop_letter;
+                            var string_new_placement = new_placement.toString();
+                            
+                            var go_to_new_location = "grid_" + new_sop_row + "_" + new_sop_column + "_" + new_sop_letter;//ID for new location if permitted.
+                            var change_original = document.getElementById(original_placement);
+                            var change_new = document.getElementById(go_to_new_location);
+                            if(impassable_locations_array.indexOf(string_new_placement) > -1){
                                 
-                                console.log("Comparison check new_character_placement_id  " + new_character_placement_id);
-                                document.getElementById(original_character_placement_id).className = "character_placement red_background";
-                                document.getElementById(new_character_placement_id).className = "character_placement";
-                                
-                                return false;//Enusres loop only runs once.
-                                
+                                change_original.className = "character_placement red_background";
+                                if(change_new === null){
+
+                                }
+                                else{
+                                change_new.className = "character_placement";
+                                }
+                                console.log("The conditional on D to C is stating that the impassable array has the value of the next coordinate somewhere.");
                             }
-                        
+                            else{
                                 
-                                document.getElementById(new_character_placement_id).className = "character_placement red_background";
-                        
+                                if(change_new === null){
+                                
+                                    change_new = change_original;
+                                    change_original.className = "character_placement red_background";
+                                    
+                                }else{
+                                change_original.className = "character_placement";
+                                change_new.className = "character_placement red_background";
+                                
+                                console.log("We are still waiting to see if impassable locations will be detected...");
+                                }
+                            }
+                      
+                        }
+                                   
+                    }//End letter_indeces[A] right movement to B
+                    
+                    /////////////////////////////////////////////////////////////////////////////
+                    /////////////////////////////////////////////////////////////////////////////
+                    else if(sop_letter === letter_indeces[1]){//Move Right B ===> A column change 
+                    //
+                    //keyCode_right impassable
+                    //
+                    var impassable_locations_array = [];
+                    var find_impassable = document.getElementsByClassName("impassable");//This id will never equal that of character_placement id simply because of _inner
+                    
+                    var k;
+                    var l;
+                    var pseudo_array_length_01 = 8;
+                    impassable_loop:
+                    for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
+                            console.log(find_impassable[k].id);
+                            var find_impassable_id = find_impassable[k].id;
+                            var stringify_find_impassable_id = find_impassable_id.toString();
+                            var sfi_id = stringify_find_impassable_id.split("_");
+
+
+                            var impassable_row_initial = sfi_id[1];
+                            var impassable_cell_initial = sfi_id[2];
+                            var impassable_subset_array = sfi_id[3];
+                          
+                            var impassable_locations = impassable_row_initial + impassable_cell_initial + impassable_subset_array;
+                            var string_impassable_locations = impassable_locations.toString();//Ensure impassable locations typing is set to string
+                            impassable_locations_array.push(string_impassable_locations);
                             
-                        }
-                        
-                        
-                        
-                        /*
-                        * 1. Find all zone_container(s) with the class of impassable.
-                        * 2. Retrieve id(s) of the zone_container(s)
-                        * 3. Split said id(s)
-                        * 4. Find character_placement id and split. Set this to a separate variable so we can reset after comparison.
-                        * 5. Compare character_placement id to zone_container id then reset character_placement to reset point if they match.
-                        * 6. This needs to be done on every key press so the page knows when to fire the function and do the check as well as having access to character_placement values.
-                        * 
-                        */
-                       
-                        console.log("original row initial" + scp_row_initial + "new row initial" + new_scp_row_initial);                        
-                        console.log("original_cell_initial" + scp_cell_initial + "new_cell_initial" + new_scp_cell_initial);
-                        console.log("original subset array" + scp_subset_array + "new subset array" + new_scp_subset_array);
-                        
+                            var string_current_impassable_location = impassable_locations_array[l];
+                            console.log("Impassable location array  " + impassable_locations_array[l]);//Display 4
+                            //All impassable locations have been pulled successfully from this script. End for loop impassable
+                            //Format for impassable locations array = 14C, 14D, 24A, 24B, etc...
+                            
+                            var sop_row_parse = parseInt(sop_row); 
+                            var sop_column_parse = parseInt(sop_column);
+                            
+                            var new_sop_row = sop_row_parse;
+                            var new_sop_column = sop_column_parse + 1;
+                            var new_sop_letter = letter_indeces[0];
+                            
+                            var new_sop_row_string = new_sop_row.toString();
+                            var new_sop_column_string = new_sop_column.toString();
+                            
+                            var new_placement = new_sop_row_string + new_sop_column_string + new_sop_letter;
+                            var string_new_placement = new_placement.toString();
+                            
+                            var go_to_new_location = "grid_" + new_sop_row + "_" + new_sop_column + "_" + new_sop_letter;//ID for new location if permitted.
+                            var change_original = document.getElementById(original_placement);
+                            var change_new = document.getElementById(go_to_new_location);
+                            
+                            console.log("Comparing. String_new_placement = " + string_new_placement + "String_current_impassable_location = " + string_current_impassable_location);
+                            console.log(typeof(string_new_placement) + "  " + typeof(string_current_impassable_location));
+                            var string_comparison = string_current_impassable_location.localeCompare(string_new_placement);
+                            console.log(string_comparison);
 
-                        
+                            if(impassable_locations_array.indexOf(string_new_placement) > -1){
+                                
+                                change_original.className = "character_placement red_background";
+                                if(change_new === null){
 
-                        
-                        
-                        
-                        
-                    }
-                    else if(scp_subset_array === letter_indeces[3]){//Subset D ===> C Column change
-                       
-                        //Write logic here to add 1 to cell_initial in the character placement and set character placement as needed;
-                        //Once added 1 to cell_initial we need to reform all four id representatives and then stylize the given coordinate's id with red background;
-                        //There has to be separation because the new subset array is going to vary depending on up or down in cell container;
-                        //new_character_placement_id is to be new id for the cell the character moves to; 
-                        
-                        new_scp_row_initial = parseInt(scp_row_initial);//All scp are in string format, convert to integer for math.
-                        new_scp_row_initial = new_scp_row_initial.toString();
-                        
-                        scp_cell_initial = parseInt(scp_cell_initial);//All scp are in string format, convert to integer for math.
-                        new_scp_cell_initial = scp_cell_initial + 1;
-                        new_scp_cell_initial = new_scp_cell_initial.toString();
-                        
-                        console.log("original_cell_initial" + scp_cell_initial);
-                        console.log("new_cell_initial" + new_scp_cell_initial);
-                        
-                        new_scp_subset_array = letter_indeces[2];
-                        
-                        new_character_placement_id = new_scp_grid + "_" + new_scp_row_initial + "_" + new_scp_cell_initial + "_" + new_scp_subset_array;
-                        
-                        if(!document.getElementById(new_character_placement_id)){
-                            new_character_placement_id = split_character_placement[0] + "_" + split_character_placement[1] + "_" + split_character_placement[2] + "_" + split_character_placement[3];
-                            document.getElementById(new_character_placement_id).className = "character_placement red_background";
+                                }
+                                else{
+                                change_new.className = "character_placement";
+                                }
+                                console.log("The conditional on D to C is stating that the impassable array has the value of the next coordinate somewhere.");
+                            }
+                            else{
+                                if(change_new === null){
+                                
+                                    change_new = change_original;
+                                    change_original.className = "character_placement red_background";
+                                    
+                                }else{
+                                change_original.className = "character_placement";
+                                change_new.className = "character_placement red_background";
+                                
+                                console.log("We are still waiting to see if impassable locations will be detected...");
+                                }
+                            }
+                      
                         }
-                        
-                        document.getElementById(new_character_placement_id).className = "character_placement red_background";
-                        
-                    }
-                    
-                    else if(scp_subset_array === letter_indeces[0]){//Subset A ===> B No column change
 
-                        new_scp_row_initial = parseInt(scp_row_initial);//All scp are in string format, convert to integer for math.
-                        new_scp_row_initial = new_scp_row_initial.toString();
-                        
-                        scp_cell_initial = parseInt(scp_cell_initial);//All scp are in string format, convert to integer for math.
-                        new_scp_cell_initial = scp_cell_initial;
-                        new_scp_cell_initial = new_scp_cell_initial.toString();
-                        
-                        console.log("original_cell_initial" + scp_cell_initial);
-                        console.log("new_cell_initial" + new_scp_cell_initial);
-                        
-                        new_scp_subset_array = letter_indeces[1];
-                        
-                        new_character_placement_id = new_scp_grid + "_" + new_scp_row_initial + "_" + new_scp_cell_initial + "_" + new_scp_subset_array;
-                        
-                        if(!document.getElementById(new_character_placement_id)){
-                            new_character_placement_id = split_character_placement[0] + "_" + split_character_placement[1] + "_" + split_character_placement[2] + "_" + split_character_placement[3];
-                            document.getElementById(new_character_placement_id).className = "character_placement red_background";
-                        }
-                        
-                        document.getElementById(new_character_placement_id).className = "character_placement red_background";
-                        
-                       
-                        
-                    }
-                    else{ //letter_indeces[2] Subset C ===> D No column change
-                        
-                        //Row unchanged in left to right
-                        new_scp_row_initial = parseInt(scp_row_initial);//All scp are in string format, convert to integer for math.
-                        new_scp_row_initial = new_scp_row_initial.toString();
-                        
-                        //Column changed in left to right if start in letter_indeces[1] or [3]
-                        scp_cell_initial = parseInt(scp_cell_initial);//All scp are in string format, convert to integer for math.
-                        new_scp_cell_initial = scp_cell_initial;
-                        new_scp_cell_initial = new_scp_cell_initial.toString();
-                        
-                        console.log("original_cell_initial" + scp_cell_initial);
-                        console.log("new_cell_initial" + new_scp_cell_initial);
-                        //Chaging subset_array to new character
-                        new_scp_subset_array = letter_indeces[3];
-                        
-                        new_character_placement_id = new_scp_grid + "_" + new_scp_row_initial + "_" + new_scp_cell_initial + "_" + new_scp_subset_array;
-                        
-                        if(!document.getElementById(new_character_placement_id)){
-                            new_character_placement_id = split_character_placement[0] + "_" + split_character_placement[1] + "_" + split_character_placement[2] + "_" + split_character_placement[3];
-                            document.getElementById(new_character_placement_id).className = "character_placement red_background";
-                        }
-                        
-                        document.getElementById(new_character_placement_id).className = "character_placement red_background";
+                                   
+                    }//End letter_indeces[B] right movement to A
                     
-                    }
+                  
+                    else if(sop_letter === letter_indeces[3]){//Move Right D ===> C column change 
+                    //
+                    //keyCode_right impassable
+                    //
+                    var impassable_locations_array = [];
+                    var find_impassable = document.getElementsByClassName("impassable");//This id will never equal that of character_placement id simply because of _inner
                     
-                }//END RIGHT PRESS
+                    var k;
+                    var l;
+                    var pseudo_array_length_01 = 8;
+                    impassable_loop:
+                    for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
+                            console.log(find_impassable[k].id);
+                            var find_impassable_id = find_impassable[k].id;
+                            var stringify_find_impassable_id = find_impassable_id.toString();
+                            var sfi_id = stringify_find_impassable_id.split("_");
+
+
+                            var impassable_row_initial = sfi_id[1];
+                            var impassable_cell_initial = sfi_id[2];
+                            var impassable_subset_array = sfi_id[3];
+                          
+                            var impassable_locations = impassable_row_initial + impassable_cell_initial + impassable_subset_array;
+                            var string_impassable_locations = impassable_locations.toString();//Ensure impassable locations typing is set to string
+                            impassable_locations_array.push(string_impassable_locations);
+                            
+                            var string_current_impassable_location = impassable_locations_array[l];
+                            console.log("Impassable location array  " + impassable_locations_array[l]);//Display 4
+                            //All impassable locations have been pulled successfully from this script. End for loop impassable
+                            //Format for impassable locations array = 14C, 14D, 24A, 24B, etc...
+                            
+                            var sop_row_parse = parseInt(sop_row); 
+                            var sop_column_parse = parseInt(sop_column);
+                            
+                            var new_sop_row = sop_row_parse;
+                            var new_sop_column = sop_column_parse + 1;
+                            var new_sop_letter = letter_indeces[2];
+                            
+                            var new_sop_row_string = new_sop_row.toString();
+                            var new_sop_column_string = new_sop_column.toString();
+                            
+                            var new_placement = new_sop_row_string + new_sop_column_string + new_sop_letter;
+                            var string_new_placement = new_placement.toString();
+                            
+                            var go_to_new_location = "grid_" + new_sop_row + "_" + new_sop_column + "_" + new_sop_letter;//ID for new location if permitted.
+                            var change_original = document.getElementById(original_placement);
+                            var change_new = document.getElementById(go_to_new_location);
+                            
+                            console.log("Comparing. String_new_placement = " + string_new_placement + "String_current_impassable_location = " + string_current_impassable_location);
+                            console.log(typeof(string_new_placement) + "  " + typeof(string_current_impassable_location));
+                            var string_comparison = string_current_impassable_location.localeCompare(string_new_placement);
+                            console.log(string_comparison);
+
+                            if(impassable_locations_array.indexOf(string_new_placement) > -1){
+                                
+                                change_original.className = "character_placement red_background";
+                                if(change_new === null){
+
+                                }
+                                else{
+                                change_new.className = "character_placement";
+                                }
+                                console.log("The conditional on D to C is stating that the impassable array has the value of the next coordinate somewhere.");
+                            }
+                            else{
+                                if(change_new === null){
+                                    
+                                    change_new = change_original;
+                                    change_original.className = "character_placement red_background";
+                                    
+                                }
+                                change_original.className = "character_placement";
+                                change_new.className = "character_placement red_background";
+                                
+                                console.log("We are still waiting to see if impassable locations will be detected...");
+                            }
+                        }
+
+                                   
+                    }//End letter_indeces[D] right movement to C
+                    
+                    
+                    
+                    if(sop_letter === letter_indeces[2]){//Move Right C ===> D no column change 
+                    //
+                    //keyCode_right impassable
+                    //
+                    var impassable_locations_array = [];
+                    var find_impassable = document.getElementsByClassName("impassable");//This id will never equal that of character_placement id simply because of _inner
+                    
+                    var k;
+                    var l;
+                    var pseudo_array_length_01 = 8;
+                    for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
+                            console.log(find_impassable[k].id);
+                            var find_impassable_id = find_impassable[k].id;
+                            var stringify_find_impassable_id = find_impassable_id.toString();
+                            var sfi_id = stringify_find_impassable_id.split("_");
+
+
+                            var impassable_row_initial = sfi_id[1];
+                            var impassable_cell_initial = sfi_id[2];
+                            var impassable_subset_array = sfi_id[3];
+                          
+                            var impassable_locations = impassable_row_initial + impassable_cell_initial + impassable_subset_array;
+                            var string_impassable_locations = impassable_locations.toString();//Ensure impassable locations typing is set to string
+                            impassable_locations_array.push(string_impassable_locations);
+                            console.log("Impassable location array  " + impassable_locations_array[l]);//Display 4
+                            //All impassable locations have been pulled successfully from this script. End for loop impassable
+                            //Format for impassable locations array = 14C, 14D, 24A, 24B, etc...
+                            
+                            var sop_row_parse = parseInt(sop_row); 
+                            var sop_column_parse = parseInt(sop_column);
+                            
+                            var new_sop_row = sop_row_parse;
+                            var new_sop_column = sop_column_parse;
+                            var new_sop_letter = letter_indeces[3];
+                            
+                            var new_sop_row_string = new_sop_row.toString();
+                            var new_sop_column_string = new_sop_column.toString();
+                            
+                            var new_placement = new_sop_row_string + new_sop_column_string + new_sop_letter;
+                            var string_new_placement = new_placement.toString();
+                            
+                            var go_to_new_location = "grid_" + new_sop_row + "_" + new_sop_column + "_" + new_sop_letter;//ID for new location if permitted.
+                            var change_original = document.getElementById(original_placement);
+                            var change_new = document.getElementById(go_to_new_location);
+                            if(impassable_locations_array.indexOf(string_new_placement) > -1){
+                                
+                                change_original.className = "character_placement red_background";
+                                if(change_new === null){
+
+                                }
+                                else{
+                                change_new.className = "character_placement";
+                                }
+                                console.log("The conditional on D to C is stating that the impassable array has the value of the next coordinate somewhere.");
+                            }
+                            else{
+                                
+                                if(change_new === null){
+                                
+                                    change_new = change_original;
+                                    change_original.className = "character_placement red_background";
+                                    
+                                }else{
+                                change_original.className = "character_placement";
+                                change_new.className = "character_placement red_background";
+                                
+                                console.log("We are still waiting to see if impassable locations will be detected...");
+                                }
+                            }
+                      
+                        }
+                                   
+                    }//End letter_indeces[C] right movement to D
+   
+                }//End keyCode D right movement
                 
                 
                 
-                if(e.keyCode === 65){//Move left on kepress of "a" WORKING
-                    
-                    //This finds the current element with the class of red_background. In this example there will be only one element with this particular class at any given time.
+                
+                keyCode_left:
+                if(e.keyCode === 65){ //keyCode_D Move_left                    
+                    //
+                    //keyCode_left original location
+                    //
+                    //keyCode_A find current container with red_background class.
                     var find_location = document.getElementsByClassName("red_background");
+                    var original_placement = find_location[0].id;
+                    console.log("Find originating character placement: " + original_placement);//Display 2
+                
+                    var split_original_placement = original_placement.split("_");
+                    //Assign each part of the original placement id to separate parts.
+                    //Grid is unnecessary
+                    var sop_row = split_original_placement[1];//1, 2, 3, or 4
+                    var sop_column = split_original_placement[2];//1, 2, 3, or 4
+                    var sop_letter = split_original_placement[3];//A, B, C, or D
+                    //No_inner
+                    var original_character_placement_id = sop_row + sop_column + sop_letter;
+                    console.log("Original placement split: " + split_original_placement);//Display 3
+                    console.log("Original placement reformed: " + original_character_placement_id);
+                    //Original placement is now in impassable location form and ready to compare. Access original_placement for resetting character position.
                     
-                    var character_placement = find_location[0].id;
-                    document.getElementById(character_placement).className = "character_placement";//Officially removes red_background class from the original or previous character placement coordinate;
-                   
-                    var split_character_placement = character_placement.split("_");//Id of character placement is now in array;
+                    ///////////////////////////////////////////////////////////////////////////
+                    ///////////////////////////////////////////////////////////////////////////
+                    if(sop_letter === letter_indeces[0]){//Move Left A ===> B column change 
+                    //
+                    //keyCode_left impassable
+                    //
+                    var impassable_locations_array = [];
+                    var find_impassable = document.getElementsByClassName("impassable");//This id will never equal that of character_placement id simply because of _inner
                     
-                    var scp_grid = split_character_placement[0];//grid
-                    var scp_row_initial = split_character_placement[1];//1, 2, 3, or 4
-                    var scp_cell_initial = split_character_placement[2];//1, 2, 3, or 4
-                    var scp_subset_array = split_character_placement[3];//A, B, C, or D Needs to be checked what letter_indeces does this match?
-                    
-                    //document.getElementById('check_scp_output').innerHTML = scp_grid + scp_row_initial + scp_cell_initial + scp_subset_array + "<br/>" + letter_indeces[0] + letter_indeces[1] + letter_indeces[2] + letter_indeces[3];
-                    
-                    var new_scp_grid = scp_grid;//grid
-                    var new_scp_row_initial;
-                    var new_scp_cell_initial;
-                    var new_scp_subset_array;
-                    var new_character_placement_id;
-                    
-                    if(scp_subset_array === letter_indeces[1]){//Subset B ===> A Column change
-                        
-                        //Write logic here to add 1 to cell_initial in the character placement and set character placement as needed;
-                        //Once added 1 to cell_initial we need to reform all four id representatives and then stylize the given coordinate's id with red background.
-                        //new_character_placement_id is to be new id for the cell the character moves to;
-                        new_scp_row_initial = parseInt(scp_row_initial);//All scp are in string format, convert to integer for math.
-                        new_scp_row_initial = new_scp_row_initial.toString();
-                        
-                        scp_cell_initial = parseInt(scp_cell_initial);//All scp are in string format, convert to integer for math.
-                        new_scp_cell_initial = scp_cell_initial;
-                        new_scp_cell_initial = new_scp_cell_initial.toString();
-                        
-                        console.log("original_cell_initial" + scp_cell_initial);
-                        console.log("new_cell_initial" + new_scp_cell_initial);
-                        
-                        new_scp_subset_array = letter_indeces[0];
-                        
-                        new_character_placement_id = new_scp_grid + "_" + new_scp_row_initial + "_" + new_scp_cell_initial + "_" + new_scp_subset_array;
-                        
-                        if(!document.getElementById(new_character_placement_id)){
-                            new_character_placement_id = split_character_placement[0] + "_" + split_character_placement[1] + "_" + split_character_placement[2] + "_" + split_character_placement[3];
-                            document.getElementById(new_character_placement_id).className = "character_placement red_background";
-                        }
-                        
-                        document.getElementById(new_character_placement_id).className = "character_placement red_background";
-                        
-                        
-                        
-                    }
-                    else if(scp_subset_array === letter_indeces[3]){//Subset D ===> C Column change
-                       
-                        //Write logic here to add 1 to cell_initial in the character placement and set character placement as needed;
-                        //Once added 1 to cell_initial we need to reform all four id representatives and then stylize the given coordinate's id with red background;
-                        //There has to be separation because the new subset array is going to vary depending on up or down in cell container;
-                        //new_character_placement_id is to be new id for the cell the character moves to; 
-                        
-                        new_scp_row_initial = parseInt(scp_row_initial);//All scp are in string format, convert to integer for math.
-                        new_scp_row_initial = new_scp_row_initial.toString();
-                        
-                        scp_cell_initial = parseInt(scp_cell_initial);//All scp are in string format, convert to integer for math.
-                        new_scp_cell_initial = scp_cell_initial;
-                        new_scp_cell_initial = new_scp_cell_initial.toString();
-                        
-                        console.log("original_cell_initial" + scp_cell_initial);
-                        console.log("new_cell_initial" + new_scp_cell_initial);
-                        
-                        new_scp_subset_array = letter_indeces[2];
-                        
-                        new_character_placement_id = new_scp_grid + "_" + new_scp_row_initial + "_" + new_scp_cell_initial + "_" + new_scp_subset_array;
-                        
-                        if(!document.getElementById(new_character_placement_id)){
-                            new_character_placement_id = split_character_placement[0] + "_" + split_character_placement[1] + "_" + split_character_placement[2] + "_" + split_character_placement[3];
-                            document.getElementById(new_character_placement_id).className = "character_placement red_background";
-                        }
-                        
-                        document.getElementById(new_character_placement_id).className = "character_placement red_background";
-                        
-                    }
-                    
-                    else if(scp_subset_array === letter_indeces[0]){//Subset A ===> B No column change
+                    var k;
+                    var l;
+                    var pseudo_array_length_01 = 8;
+                    for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
+                            console.log(find_impassable[k].id);
+                            var find_impassable_id = find_impassable[k].id;
+                            var stringify_find_impassable_id = find_impassable_id.toString();
+                            var sfi_id = stringify_find_impassable_id.split("_");
 
-                        new_scp_row_initial = parseInt(scp_row_initial);//All scp are in string format, convert to integer for math.
-                        new_scp_row_initial = new_scp_row_initial.toString();
-                        
-                        scp_cell_initial = parseInt(scp_cell_initial);//All scp are in string format, convert to integer for math.
-                        new_scp_cell_initial = scp_cell_initial - 1;
-                        new_scp_cell_initial = new_scp_cell_initial.toString();
-                        
-                        console.log("original_cell_initial" + scp_cell_initial);
-                        console.log("new_cell_initial" + new_scp_cell_initial);
-                        
-                        new_scp_subset_array = letter_indeces[1];
-                        
-                        new_character_placement_id = new_scp_grid + "_" + new_scp_row_initial + "_" + new_scp_cell_initial + "_" + new_scp_subset_array;
-                        
-                        if(!document.getElementById(new_character_placement_id)){
-                            new_character_placement_id = split_character_placement[0] + "_" + split_character_placement[1] + "_" + split_character_placement[2] + "_" + split_character_placement[3];
-                            document.getElementById(new_character_placement_id).className = "character_placement red_background";
+
+                            var impassable_row_initial = sfi_id[1];
+                            var impassable_cell_initial = sfi_id[2];
+                            var impassable_subset_array = sfi_id[3];
+                          
+                            var impassable_locations = impassable_row_initial + impassable_cell_initial + impassable_subset_array;
+                            var string_impassable_locations = impassable_locations.toString();//Ensure impassable locations typing is set to string
+                            impassable_locations_array.push(string_impassable_locations);
+                            console.log("Impassable location array  " + impassable_locations_array[l]);//Display 4
+                            //All impassable locations have been pulled successfully from this script. End for loop impassable
+                            //Format for impassable locations array = 14C, 14D, 24A, 24B, etc...
+                            
+                            var sop_row_parse = parseInt(sop_row); 
+                            var sop_column_parse = parseInt(sop_column);
+                            
+                            var new_sop_row = sop_row_parse;
+                            var new_sop_column = sop_column_parse - 1;
+                            var new_sop_letter = letter_indeces[1];
+                            
+                            var new_sop_row_string = new_sop_row.toString();
+                            var new_sop_column_string = new_sop_column.toString();
+                            
+                            var new_placement = new_sop_row_string + new_sop_column_string + new_sop_letter;
+                            var string_new_placement = new_placement.toString();
+                            
+                            var go_to_new_location = "grid_" + new_sop_row + "_" + new_sop_column + "_" + new_sop_letter;//ID for new location if permitted.
+                            var change_original = document.getElementById(original_placement);
+                            var change_new = document.getElementById(go_to_new_location);
+                            if(impassable_locations_array.indexOf(string_new_placement) > -1){
+                                
+                                change_original.className = "character_placement red_background";
+                                if(change_new === null){
+
+                                }
+                                else{
+                                change_new.className = "character_placement";
+                                }
+                                console.log("The conditional on D to C is stating that the impassable array has the value of the next coordinate somewhere.");
+                            }
+                            else{
+                                
+                                if(change_new === null){
+                                
+                                    change_new = change_original;
+                                    change_original.className = "character_placement red_background";
+                                    
+                                }else{
+                                change_original.className = "character_placement";
+                                change_new.className = "character_placement red_background";
+                                
+                                console.log("We are still waiting to see if impassable locations will be detected...");
+                                }
+                            }
+                      
                         }
-                        
-                        document.getElementById(new_character_placement_id).className = "character_placement red_background";
-                        
-                       
-                        
-                    }
-                    else{ //letter_indeces[2] Subset C ===> D No column change
-                        
-                        new_scp_row_initial = parseInt(scp_row_initial);//All scp are in string format, convert to integer for math.
-                        new_scp_row_initial = new_scp_row_initial.toString();
-                        
-                        scp_cell_initial = parseInt(scp_cell_initial);//All scp are in string format, convert to integer for math.
-                        new_scp_cell_initial = scp_cell_initial - 1;
-                        new_scp_cell_initial = new_scp_cell_initial.toString();
-                        
-                        console.log("original_cell_initial" + scp_cell_initial);
-                        console.log("new_cell_initial" + new_scp_cell_initial);
-                        
-                        new_scp_subset_array = letter_indeces[3];
-                        
-                        new_character_placement_id = new_scp_grid + "_" + new_scp_row_initial + "_" + new_scp_cell_initial + "_" + new_scp_subset_array;
-                        
-                        if(!document.getElementById(new_character_placement_id)){
-                            new_character_placement_id = split_character_placement[0] + "_" + split_character_placement[1] + "_" + split_character_placement[2] + "_" + split_character_placement[3];
-                            document.getElementById(new_character_placement_id).className = "character_placement red_background";
-                        }
-                        
-                        document.getElementById(new_character_placement_id).className = "character_placement red_background";
-                                                
-                        
-                        
-                    }
+                                   
+                    }//End letter_indeces[A] left movement to B
                     
-                }//END LEFT PRESS
+                    /////////////////////////////////////////////////////////////////////////////
+                    /////////////////////////////////////////////////////////////////////////////
+                    else if(sop_letter === letter_indeces[1]){//Move Left B ===> A no column change 
+                    //
+                    //keyCode_right impassable
+                    //
+                    var impassable_locations_array = [];
+                    var find_impassable = document.getElementsByClassName("impassable");//This id will never equal that of character_placement id simply because of _inner
+                    
+                    var k;
+                    var l;
+                    var pseudo_array_length_01 = 8;
+                    impassable_loop:
+                    for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
+                            console.log(find_impassable[k].id);
+                            var find_impassable_id = find_impassable[k].id;
+                            var stringify_find_impassable_id = find_impassable_id.toString();
+                            var sfi_id = stringify_find_impassable_id.split("_");
+
+
+                            var impassable_row_initial = sfi_id[1];
+                            var impassable_cell_initial = sfi_id[2];
+                            var impassable_subset_array = sfi_id[3];
+                          
+                            var impassable_locations = impassable_row_initial + impassable_cell_initial + impassable_subset_array;
+                            var string_impassable_locations = impassable_locations.toString();//Ensure impassable locations typing is set to string
+                            impassable_locations_array.push(string_impassable_locations);
+                            
+                            var string_current_impassable_location = impassable_locations_array[l];
+                            console.log("Impassable location array  " + impassable_locations_array[l]);//Display 4
+                            //All impassable locations have been pulled successfully from this script. End for loop impassable
+                            //Format for impassable locations array = 14C, 14D, 24A, 24B, etc...
+                            
+                            var sop_row_parse = parseInt(sop_row); 
+                            var sop_column_parse = parseInt(sop_column);
+                            
+                            var new_sop_row = sop_row_parse;
+                            var new_sop_column = sop_column_parse;
+                            var new_sop_letter = letter_indeces[0];
+                            
+                            var new_sop_row_string = new_sop_row.toString();
+                            var new_sop_column_string = new_sop_column.toString();
+                            
+                            var new_placement = new_sop_row_string + new_sop_column_string + new_sop_letter;
+                            var string_new_placement = new_placement.toString();
+                            
+                            var go_to_new_location = "grid_" + new_sop_row + "_" + new_sop_column + "_" + new_sop_letter;//ID for new location if permitted.
+                            var change_original = document.getElementById(original_placement);
+                            var change_new = document.getElementById(go_to_new_location);
+                            
+                            console.log("Comparing. String_new_placement = " + string_new_placement + "String_current_impassable_location = " + string_current_impassable_location);
+                            console.log(typeof(string_new_placement) + "  " + typeof(string_current_impassable_location));
+                            var string_comparison = string_current_impassable_location.localeCompare(string_new_placement);
+                            console.log(string_comparison);
+
+                            if(impassable_locations_array.indexOf(string_new_placement) > -1){
+                                
+                                change_original.className = "character_placement red_background";
+                                if(change_new === null){
+
+                                }
+                                else{
+                                change_new.className = "character_placement";
+                                }
+                                console.log("The conditional on D to C is stating that the impassable array has the value of the next coordinate somewhere.");
+                            }
+                            else{
+                                if(change_new === null){
+                                
+                                    change_new = change_original;
+                                    change_original.className = "character_placement red_background";
+                                    
+                                }else{
+                                change_original.className = "character_placement";
+                                change_new.className = "character_placement red_background";
+                                
+                                console.log("We are still waiting to see if impassable locations will be detected...");
+                                }
+                            }
+                      
+                        }
+
+                                   
+                    }//End letter_indeces[B] right movement to A
+                    
+                  
+                    else if(sop_letter === letter_indeces[3]){//Move Left D ===> C no column change 
+                    //
+                    //keyCode_right impassable
+                    //
+                    var impassable_locations_array = [];
+                    var find_impassable = document.getElementsByClassName("impassable");//This id will never equal that of character_placement id simply because of _inner
+                    
+                    var k;
+                    var l;
+                    var pseudo_array_length_01 = 8;
+                    impassable_loop:
+                    for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
+                            console.log(find_impassable[k].id);
+                            var find_impassable_id = find_impassable[k].id;
+                            var stringify_find_impassable_id = find_impassable_id.toString();
+                            var sfi_id = stringify_find_impassable_id.split("_");
+
+
+                            var impassable_row_initial = sfi_id[1];
+                            var impassable_cell_initial = sfi_id[2];
+                            var impassable_subset_array = sfi_id[3];
+                          
+                            var impassable_locations = impassable_row_initial + impassable_cell_initial + impassable_subset_array;
+                            var string_impassable_locations = impassable_locations.toString();//Ensure impassable locations typing is set to string
+                            impassable_locations_array.push(string_impassable_locations);
+                            
+                            var string_current_impassable_location = impassable_locations_array[l];
+                            console.log("Impassable location array  " + impassable_locations_array[l]);//Display 4
+                            //All impassable locations have been pulled successfully from this script. End for loop impassable
+                            //Format for impassable locations array = 14C, 14D, 24A, 24B, etc...
+                            
+                            var sop_row_parse = parseInt(sop_row); 
+                            var sop_column_parse = parseInt(sop_column);
+                            
+                            var new_sop_row = sop_row_parse;
+                            var new_sop_column = sop_column_parse;
+                            var new_sop_letter = letter_indeces[2];
+                            
+                            var new_sop_row_string = new_sop_row.toString();
+                            var new_sop_column_string = new_sop_column.toString();
+                            
+                            var new_placement = new_sop_row_string + new_sop_column_string + new_sop_letter;
+                            var string_new_placement = new_placement.toString();
+                            
+                            var go_to_new_location = "grid_" + new_sop_row + "_" + new_sop_column + "_" + new_sop_letter;//ID for new location if permitted.
+                            var change_original = document.getElementById(original_placement);
+                            var change_new = document.getElementById(go_to_new_location);
+                            
+                            console.log("Comparing. String_new_placement = " + string_new_placement + "String_current_impassable_location = " + string_current_impassable_location);
+                            console.log(typeof(string_new_placement) + "  " + typeof(string_current_impassable_location));
+                            var string_comparison = string_current_impassable_location.localeCompare(string_new_placement);
+                            console.log(string_comparison);
+
+                            if(impassable_locations_array.indexOf(string_new_placement) > -1){
+                                
+                                change_original.className = "character_placement red_background";
+                                if(change_new === null){
+
+                                }
+                                else{
+                                change_new.className = "character_placement";
+                                }
+                                console.log("The conditional on D to C is stating that the impassable array has the value of the next coordinate somewhere.");
+                            }
+                            else{
+                                if(change_new === null){
+                                    
+                                    change_new = change_original;
+                                    change_original.className = "character_placement red_background";
+                                    
+                                }
+                                change_original.className = "character_placement";
+                                change_new.className = "character_placement red_background";
+                                
+                                console.log("We are still waiting to see if impassable locations will be detected...");
+                            }
+                        }
+
+                                   
+                    }//End letter_indeces[D] left movement to C
+                    
+                    
+                    
+                    if(sop_letter === letter_indeces[2]){//Move Left C ===> D column change 
+                    //
+                    //keyCode_left impassable
+                    //
+                    var impassable_locations_array = [];
+                    var find_impassable = document.getElementsByClassName("impassable");//This id will never equal that of character_placement id simply because of _inner
+                    
+                    var k;
+                    var l;
+                    var pseudo_array_length_01 = 8;
+                    for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
+                            console.log(find_impassable[k].id);
+                            var find_impassable_id = find_impassable[k].id;
+                            var stringify_find_impassable_id = find_impassable_id.toString();
+                            var sfi_id = stringify_find_impassable_id.split("_");
+
+
+                            var impassable_row_initial = sfi_id[1];
+                            var impassable_cell_initial = sfi_id[2];
+                            var impassable_subset_array = sfi_id[3];
+                          
+                            var impassable_locations = impassable_row_initial + impassable_cell_initial + impassable_subset_array;
+                            var string_impassable_locations = impassable_locations.toString();//Ensure impassable locations typing is set to string
+                            impassable_locations_array.push(string_impassable_locations);
+                            console.log("Impassable location array  " + impassable_locations_array[l]);//Display 4
+                            //All impassable locations have been pulled successfully from this script. End for loop impassable
+                            //Format for impassable locations array = 14C, 14D, 24A, 24B, etc...
+                            
+                            var sop_row_parse = parseInt(sop_row); 
+                            var sop_column_parse = parseInt(sop_column);
+                            
+                            var new_sop_row = sop_row_parse;
+                            var new_sop_column = sop_column_parse - 1;
+                            var new_sop_letter = letter_indeces[3];
+                            
+                            var new_sop_row_string = new_sop_row.toString();
+                            var new_sop_column_string = new_sop_column.toString();
+                            
+                            var new_placement = new_sop_row_string + new_sop_column_string + new_sop_letter;
+                            var string_new_placement = new_placement.toString();
+                            
+                            var go_to_new_location = "grid_" + new_sop_row + "_" + new_sop_column + "_" + new_sop_letter;//ID for new location if permitted.
+                            var change_original = document.getElementById(original_placement);
+                            var change_new = document.getElementById(go_to_new_location);
+                            if(impassable_locations_array.indexOf(string_new_placement) > -1){
+                                
+                                change_original.className = "character_placement red_background";
+                                if(change_new === null){
+
+                                }
+                                else{
+                                change_new.className = "character_placement";
+                                }
+                                console.log("The conditional on D to C is stating that the impassable array has the value of the next coordinate somewhere.");
+                            }
+                            else{
+                                
+                                if(change_new === null){
+                                
+                                    change_new = change_original;
+                                    change_original.className = "character_placement red_background";
+                                    
+                                }else{
+                                change_original.className = "character_placement";
+                                change_new.className = "character_placement red_background";
+                                
+                                console.log("We are still waiting to see if impassable locations will be detected...");
+                                }
+                            }
+                      
+                        }
+                                   
+                    }//End letter_indeces[C] left movement to D
+   
+                }//End keyCode A left movement
                 
                 
-                if(e.keyCode === 83){//Move down on kepress of "s"
-                    
-                    //This finds the current element with the class of red_background. In this example there will be only one element with this particular class at any given time.
+                keyCode_down:
+                if(e.keyCode === 83){ //keyCode_S Move_down
+                    //
+                    //keyCode_down original location
+                    //
+                    //keyCode_A find current container with red_background class.
                     var find_location = document.getElementsByClassName("red_background");
+                    var original_placement = find_location[0].id;
+                    console.log("Find originating character placement: " + original_placement);//Display 2
+                
+                    var split_original_placement = original_placement.split("_");
+                    //Assign each part of the original placement id to separate parts.
+                    //Grid is unnecessary
+                    var sop_row = split_original_placement[1];//1, 2, 3, or 4
+                    var sop_column = split_original_placement[2];//1, 2, 3, or 4
+                    var sop_letter = split_original_placement[3];//A, B, C, or D
+                    //No_inner
+                    var original_character_placement_id = sop_row + sop_column + sop_letter;
+                    console.log("Original placement split: " + split_original_placement);//Display 3
+                    console.log("Original placement reformed: " + original_character_placement_id);
+                    //Original placement is now in impassable location form and ready to compare. Access original_placement for resetting character position.
                     
-                    var character_placement = find_location[0].id;
-                    document.getElementById(character_placement).className = "character_placement";//Officially removes red_background class from the original or previous character placement coordinate;
-                   
-                    var split_character_placement = character_placement.split("_");//Id of character placement is now in array;
+                    ///////////////////////////////////////////////////////////////////////////
+                    ///////////////////////////////////////////////////////////////////////////
+                    if(sop_letter === letter_indeces[0]){//Move Down A ===> C no row change 
+                    //
+                    //keyCode_down impassable
+                    //
+                    var impassable_locations_array = [];
+                    var find_impassable = document.getElementsByClassName("impassable");//This id will never equal that of character_placement id simply because of _inner
                     
-                    var scp_grid = split_character_placement[0];//grid
-                    var scp_row_initial = split_character_placement[1];//1, 2, 3, or 4
-                    var scp_cell_initial = split_character_placement[2];//1, 2, 3, or 4
-                    var scp_subset_array = split_character_placement[3];//A, B, C, or D Needs to be checked what letter_indeces does this match?
-                    
-                    //document.getElementById('check_scp_output').innerHTML = scp_grid + scp_row_initial + scp_cell_initial + scp_subset_array + "<br/>" + letter_indeces[0] + letter_indeces[1] + letter_indeces[2] + letter_indeces[3];
-                    
-                    var new_scp_grid = scp_grid;//grid
-                    var new_scp_row_initial;
-                    var new_scp_cell_initial;
-                    var new_scp_subset_array;
-                    var new_character_placement_id;
-                    
-                    if(scp_subset_array === letter_indeces[1]){//Subset B ===> D No row change
-                        
-                        //Write logic here to add 1 to cell_initial in the character placement and set character placement as needed;
-                        //Once added 1 to cell_initial we need to reform all four id representatives and then stylize the given coordinate's id with red background.
-                        //new_character_placement_id is to be new id for the cell the character moves to;
-                        new_scp_row_initial = parseInt(scp_row_initial);//All scp are in string format, convert to integer for math.
-                        new_scp_row_initial = new_scp_row_initial.toString();
-                        
-                        scp_cell_initial = parseInt(scp_cell_initial);//All scp are in string format, convert to integer for math.
-                        new_scp_cell_initial = scp_cell_initial;
-                        new_scp_cell_initial = new_scp_cell_initial.toString();
-                        
-                        console.log("original_cell_initial" + scp_cell_initial);
-                        console.log("new_cell_initial" + new_scp_cell_initial);
-                        
-                        new_scp_subset_array = letter_indeces[3];
-                        
-                        new_character_placement_id = new_scp_grid + "_" + new_scp_row_initial + "_" + new_scp_cell_initial + "_" + new_scp_subset_array;
-                        
-                        if(!document.getElementById(new_character_placement_id)){
-                            new_character_placement_id = split_character_placement[0] + "_" + split_character_placement[1] + "_" + split_character_placement[2] + "_" + split_character_placement[3];
-                            document.getElementById(new_character_placement_id).className = "character_placement red_background";
-                        }
-                        
-                        document.getElementById(new_character_placement_id).className = "character_placement red_background";
-                        
-                        
-                        
-                    }
-                    else if(scp_subset_array === letter_indeces[3]){//Subset D ===> B Row change
-                       
-                        //Write logic here to add 1 to cell_initial in the character placement and set character placement as needed;
-                        //Once added 1 to cell_initial we need to reform all four id representatives and then stylize the given coordinate's id with red background;
-                        //There has to be separation because the new subset array is going to vary depending on up or down in cell container;
-                        //new_character_placement_id is to be new id for the cell the character moves to; 
-                        
-                        scp_row_initial = parseInt(scp_row_initial);//All scp are in string format, convert to integer for math.
-                        new_scp_row_initial = scp_row_initial + 1;
-                        new_scp_row_initial = new_scp_row_initial.toString();
-                        
-                        new_scp_cell_initial = parseInt(scp_cell_initial);//All scp are in string format, convert to integer for math.                       
-                        new_scp_cell_initial = new_scp_cell_initial.toString();
-                        
-                        console.log("original_cell_initial" + scp_cell_initial);
-                        console.log("new_cell_initial" + new_scp_cell_initial);
-                        
-                        new_scp_subset_array = letter_indeces[1];
-                        
-                        new_character_placement_id = new_scp_grid + "_" + new_scp_row_initial + "_" + new_scp_cell_initial + "_" + new_scp_subset_array;
-                        
-                        if(!document.getElementById(new_character_placement_id)){
-                            new_character_placement_id = split_character_placement[0] + "_" + split_character_placement[1] + "_" + split_character_placement[2] + "_" + split_character_placement[3];
-                            document.getElementById(new_character_placement_id).className = "character_placement red_background";
-                        }
-                        
-                        document.getElementById(new_character_placement_id).className = "character_placement red_background";
-                        
-                    }
-                    
-                    else if(scp_subset_array === letter_indeces[0]){//Subset A ===> C No row change
+                    var k;
+                    var l;
+                    var pseudo_array_length_01 = 8;
+                    for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
+                            console.log(find_impassable[k].id);
+                            var find_impassable_id = find_impassable[k].id;
+                            var stringify_find_impassable_id = find_impassable_id.toString();
+                            var sfi_id = stringify_find_impassable_id.split("_");
 
-                        
-                        //Write logic here to add 1 to cell_initial in the character placement and set character placement as needed;
-                        //Once added 1 to cell_initial we need to reform all four id representatives and then stylize the given coordinate's id with red background.
-                        //new_character_placement_id is to be new id for the cell the character moves to;
-                        new_scp_row_initial = parseInt(scp_row_initial);//All scp are in string format, convert to integer for math.
-                        new_scp_row_initial = new_scp_row_initial.toString();
-                        
-                        scp_cell_initial = parseInt(scp_cell_initial);//All scp are in string format, convert to integer for math.
-                        new_scp_cell_initial = scp_cell_initial;
-                        new_scp_cell_initial = new_scp_cell_initial.toString();
-                        
-                        console.log("original_cell_initial" + scp_cell_initial);
-                        console.log("new_cell_initial" + new_scp_cell_initial);
-                        
-                        new_scp_subset_array = letter_indeces[2];
-                        
-                        new_character_placement_id = new_scp_grid + "_" + new_scp_row_initial + "_" + new_scp_cell_initial + "_" + new_scp_subset_array;
-                        
-                        if(!document.getElementById(new_character_placement_id)){
-                            new_character_placement_id = split_character_placement[0] + "_" + split_character_placement[1] + "_" + split_character_placement[2] + "_" + split_character_placement[3];
-                            document.getElementById(new_character_placement_id).className = "character_placement red_background";
-                        }
-                        
-                        document.getElementById(new_character_placement_id).className = "character_placement red_background";
-                        
-                       
-                        
-                    }
-                    else{ //letter_indeces[2] Subset C ===> A Row change
-                        
-                        scp_row_initial = parseInt(scp_row_initial);//All scp are in string format, convert to integer for math.
-                        new_scp_row_initial = scp_row_initial + 1;
-                        new_scp_row_initial = new_scp_row_initial.toString();
-                        
-                        scp_cell_initial = parseInt(scp_cell_initial);//All scp are in string format, convert to integer for math.
-                        new_scp_cell_initial = scp_cell_initial;
-                        new_scp_cell_initial = new_scp_cell_initial.toString();
-                        
-                        console.log("original_cell_initial" + scp_cell_initial);
-                        console.log("new_cell_initial" + new_scp_cell_initial);
-                        
-                        new_scp_subset_array = letter_indeces[0];
-                        
-                        new_character_placement_id = new_scp_grid + "_" + new_scp_row_initial + "_" + new_scp_cell_initial + "_" + new_scp_subset_array;
-                        
-                        if(!document.getElementById(new_character_placement_id)){
-                            new_character_placement_id = split_character_placement[0] + "_" + split_character_placement[1] + "_" + split_character_placement[2] + "_" + split_character_placement[3];
-                            document.getElementById(new_character_placement_id).className = "character_placement red_background";
-                        }
-                        
-                        document.getElementById(new_character_placement_id).className = "character_placement red_background";
-                                                
-                        
-                        
-                    }
 
+                            var impassable_row_initial = sfi_id[1];
+                            var impassable_cell_initial = sfi_id[2];
+                            var impassable_subset_array = sfi_id[3];
+                          
+                            var impassable_locations = impassable_row_initial + impassable_cell_initial + impassable_subset_array;
+                            var string_impassable_locations = impassable_locations.toString();//Ensure impassable locations typing is set to string
+                            impassable_locations_array.push(string_impassable_locations);
+                            console.log("Impassable location array  " + impassable_locations_array[l]);//Display 4
+                            //All impassable locations have been pulled successfully from this script. End for loop impassable
+                            //Format for impassable locations array = 14C, 14D, 24A, 24B, etc...
+                            
+                            var sop_row_parse = parseInt(sop_row); 
+                            var sop_column_parse = parseInt(sop_column);
+                            
+                            var new_sop_row = sop_row_parse;
+                            var new_sop_column = sop_column_parse;
+                            var new_sop_letter = letter_indeces[2];
+                            
+                            var new_sop_row_string = new_sop_row.toString();
+                            var new_sop_column_string = new_sop_column.toString();
+                            
+                            var new_placement = new_sop_row_string + new_sop_column_string + new_sop_letter;
+                            var string_new_placement = new_placement.toString();
+                            
+                            var go_to_new_location = "grid_" + new_sop_row + "_" + new_sop_column + "_" + new_sop_letter;//ID for new location if permitted.
+                            var change_original = document.getElementById(original_placement);
+                            var change_new = document.getElementById(go_to_new_location);
+                            if(impassable_locations_array.indexOf(string_new_placement) > -1){
+                                
+                                change_original.className = "character_placement red_background";
+                                if(change_new === null){
+
+                                }
+                                else{
+                                change_new.className = "character_placement";
+                                }
+                                console.log("The conditional on D to C is stating that the impassable array has the value of the next coordinate somewhere.");
+                            }
+                            else{
+                                
+                                if(change_new === null){
+                                
+                                    change_new = change_original;
+                                    change_original.className = "character_placement red_background";
+                                    
+                                }else{
+                                change_original.className = "character_placement";
+                                change_new.className = "character_placement red_background";
+                                
+                                console.log("We are still waiting to see if impassable locations will be detected...");
+                                }
+                            }
+                      
+                        }
+                                   
+                    }//End letter_indeces[A] down movement to C
                     
-                }//END DOWN PRESS
+                    /////////////////////////////////////////////////////////////////////////////
+                    /////////////////////////////////////////////////////////////////////////////
+                
+                    ///////////////////////////////////////////////////////////////////////////
+                    ///////////////////////////////////////////////////////////////////////////
+                    if(sop_letter === letter_indeces[2]){//Move Down C ===> A row change 
+                    //
+                    //keyCode_down impassable
+                    //
+                    var impassable_locations_array = [];
+                    var find_impassable = document.getElementsByClassName("impassable");//This id will never equal that of character_placement id simply because of _inner
+                    
+                    var k;
+                    var l;
+                    var pseudo_array_length_01 = 8;
+                    for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
+                            console.log(find_impassable[k].id);
+                            var find_impassable_id = find_impassable[k].id;
+                            var stringify_find_impassable_id = find_impassable_id.toString();
+                            var sfi_id = stringify_find_impassable_id.split("_");
+
+
+                            var impassable_row_initial = sfi_id[1];
+                            var impassable_cell_initial = sfi_id[2];
+                            var impassable_subset_array = sfi_id[3];
+                          
+                            var impassable_locations = impassable_row_initial + impassable_cell_initial + impassable_subset_array;
+                            var string_impassable_locations = impassable_locations.toString();//Ensure impassable locations typing is set to string
+                            impassable_locations_array.push(string_impassable_locations);
+                            console.log("Impassable location array  " + impassable_locations_array[l]);//Display 4
+                            //All impassable locations have been pulled successfully from this script. End for loop impassable
+                            //Format for impassable locations array = 14C, 14D, 24A, 24B, etc...
+                            
+                            var sop_row_parse = parseInt(sop_row); 
+                            var sop_column_parse = parseInt(sop_column);
+                            
+                            var new_sop_row = sop_row_parse + 1;
+                            var new_sop_column = sop_column_parse;
+                            var new_sop_letter = letter_indeces[0];
+                            
+                            var new_sop_row_string = new_sop_row.toString();
+                            var new_sop_column_string = new_sop_column.toString();
+                            
+                            var new_placement = new_sop_row_string + new_sop_column_string + new_sop_letter;
+                            var string_new_placement = new_placement.toString();
+                            
+                            var go_to_new_location = "grid_" + new_sop_row + "_" + new_sop_column + "_" + new_sop_letter;//ID for new location if permitted.
+                            var change_original = document.getElementById(original_placement);
+                            var change_new = document.getElementById(go_to_new_location);
+                            if(impassable_locations_array.indexOf(string_new_placement) > -1){
+                                
+                                change_original.className = "character_placement red_background";
+                                if(change_new === null){
+
+                                }
+                                else{
+                                change_new.className = "character_placement";
+                                }
+                                console.log("The conditional on D to C is stating that the impassable array has the value of the next coordinate somewhere.");
+                            }
+                            else{
+                                
+                                if(change_new === null){
+                                
+                                    change_new = change_original;
+                                    change_original.className = "character_placement red_background";
+                                    
+                                }else{
+                                change_original.className = "character_placement";
+                                change_new.className = "character_placement red_background";
+                                
+                                console.log("We are still waiting to see if impassable locations will be detected...");
+                                }
+                            }
+                      
+                        }
+                                   
+                    }//End letter_indeces[C] down movement to A
+                    
+                    /////////////////////////////////////////////////////////////////////////////
+                    /////////////////////////////////////////////////////////////////////////////
+                    
+                    if(sop_letter === letter_indeces[1]){//Move Down B ===> D no row change 
+                    //
+                    //keyCode_down impassable
+                    //
+                    var impassable_locations_array = [];
+                    var find_impassable = document.getElementsByClassName("impassable");//This id will never equal that of character_placement id simply because of _inner
+                    
+                    var k;
+                    var l;
+                    var pseudo_array_length_01 = 8;
+                    for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
+                            console.log(find_impassable[k].id);
+                            var find_impassable_id = find_impassable[k].id;
+                            var stringify_find_impassable_id = find_impassable_id.toString();
+                            var sfi_id = stringify_find_impassable_id.split("_");
+
+
+                            var impassable_row_initial = sfi_id[1];
+                            var impassable_cell_initial = sfi_id[2];
+                            var impassable_subset_array = sfi_id[3];
+                          
+                            var impassable_locations = impassable_row_initial + impassable_cell_initial + impassable_subset_array;
+                            var string_impassable_locations = impassable_locations.toString();//Ensure impassable locations typing is set to string
+                            impassable_locations_array.push(string_impassable_locations);
+                            console.log("Impassable location array  " + impassable_locations_array[l]);//Display 4
+                            //All impassable locations have been pulled successfully from this script. End for loop impassable
+                            //Format for impassable locations array = 14C, 14D, 24A, 24B, etc...
+                            
+                            var sop_row_parse = parseInt(sop_row); 
+                            var sop_column_parse = parseInt(sop_column);
+                            
+                            var new_sop_row = sop_row_parse;
+                            var new_sop_column = sop_column_parse;
+                            var new_sop_letter = letter_indeces[3];
+                            
+                            var new_sop_row_string = new_sop_row.toString();
+                            var new_sop_column_string = new_sop_column.toString();
+                            
+                            var new_placement = new_sop_row_string + new_sop_column_string + new_sop_letter;
+                            var string_new_placement = new_placement.toString();
+                            
+                            var go_to_new_location = "grid_" + new_sop_row + "_" + new_sop_column + "_" + new_sop_letter;//ID for new location if permitted.
+                            var change_original = document.getElementById(original_placement);
+                            var change_new = document.getElementById(go_to_new_location);
+                            if(impassable_locations_array.indexOf(string_new_placement) > -1){
+                                
+                                change_original.className = "character_placement red_background";
+                                if(change_new === null){
+
+                                }
+                                else{
+                                change_new.className = "character_placement";
+                                }
+                                console.log("The conditional on D to C is stating that the impassable array has the value of the next coordinate somewhere.");
+                            }
+                            else{
+                                
+                                if(change_new === null){
+                                
+                                    change_new = change_original;
+                                    change_original.className = "character_placement red_background";
+                                    
+                                }else{
+                                change_original.className = "character_placement";
+                                change_new.className = "character_placement red_background";
+                                
+                                console.log("We are still waiting to see if impassable locations will be detected...");
+                                }
+                            }
+                      
+                        }
+                                   
+                    }//End letter_indeces[B] down movement to D
+                    
+                    /////////////////////////////////////////////////////////////////////////////
+                    /////////////////////////////////////////////////////////////////////////////
+                    
+                    
+                    ///////////////////////////////////////////////////////////////////////////
+                    ///////////////////////////////////////////////////////////////////////////
+                    if(sop_letter === letter_indeces[3]){//Move Down D ===> B row change 
+                    //
+                    //keyCode_down impassable
+                    //
+                    var impassable_locations_array = [];
+                    var find_impassable = document.getElementsByClassName("impassable");//This id will never equal that of character_placement id simply because of _inner
+                    
+                    var k;
+                    var l;
+                    var pseudo_array_length_01 = 8;
+                    for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
+                            console.log(find_impassable[k].id);
+                            var find_impassable_id = find_impassable[k].id;
+                            var stringify_find_impassable_id = find_impassable_id.toString();
+                            var sfi_id = stringify_find_impassable_id.split("_");
+
+
+                            var impassable_row_initial = sfi_id[1];
+                            var impassable_cell_initial = sfi_id[2];
+                            var impassable_subset_array = sfi_id[3];
+                          
+                            var impassable_locations = impassable_row_initial + impassable_cell_initial + impassable_subset_array;
+                            var string_impassable_locations = impassable_locations.toString();//Ensure impassable locations typing is set to string
+                            impassable_locations_array.push(string_impassable_locations);
+                            console.log("Impassable location array  " + impassable_locations_array[l]);//Display 4
+                            //All impassable locations have been pulled successfully from this script. End for loop impassable
+                            //Format for impassable locations array = 14C, 14D, 24A, 24B, etc...
+                            
+                            var sop_row_parse = parseInt(sop_row); 
+                            var sop_column_parse = parseInt(sop_column);
+                            
+                            var new_sop_row = sop_row_parse + 1;
+                            var new_sop_column = sop_column_parse;
+                            var new_sop_letter = letter_indeces[1];
+                            
+                            var new_sop_row_string = new_sop_row.toString();
+                            var new_sop_column_string = new_sop_column.toString();
+                            
+                            var new_placement = new_sop_row_string + new_sop_column_string + new_sop_letter;
+                            var string_new_placement = new_placement.toString();
+                            
+                            var go_to_new_location = "grid_" + new_sop_row + "_" + new_sop_column + "_" + new_sop_letter;//ID for new location if permitted.
+                            var change_original = document.getElementById(original_placement);
+                            var change_new = document.getElementById(go_to_new_location);
+                            if(impassable_locations_array.indexOf(string_new_placement) > -1){
+                                
+                                change_original.className = "character_placement red_background";
+                                if(change_new === null){
+
+                                }
+                                else{
+                                change_new.className = "character_placement";
+                                }
+                                console.log("The conditional on D to C is stating that the impassable array has the value of the next coordinate somewhere.");
+                            }
+                            else{
+                                
+                                if(change_new === null){
+                                
+                                    change_new = change_original;
+                                    change_original.className = "character_placement red_background";
+                                    
+                                }else{
+                                change_original.className = "character_placement";
+                                change_new.className = "character_placement red_background";
+                                
+                                console.log("We are still waiting to see if impassable locations will be detected...");
+                                }
+                            }
+                      
+                        }
+                                   
+                    }//End letter_indeces[D] down movement to B
+                
+                }//End keyCode S down movement
+                keyCode_up:
+                if(e.keyCode === 87){ //keyCode_W Move_up
+                //
+                //keyCode_up original location
+                //
+                //keyCode_A find current container with red_background class.
+                var find_location = document.getElementsByClassName("red_background");
+                var original_placement = find_location[0].id;
+                console.log("Find originating character placement: " + original_placement);//Display 2
+
+                var split_original_placement = original_placement.split("_");
+                //Assign each part of the original placement id to separate parts.
+                //Grid is unnecessary
+                var sop_row = split_original_placement[1];//1, 2, 3, or 4
+                var sop_column = split_original_placement[2];//1, 2, 3, or 4
+                var sop_letter = split_original_placement[3];//A, B, C, or D
+                //No_inner
+                var original_character_placement_id = sop_row + sop_column + sop_letter;
+                console.log("Original placement split: " + split_original_placement);//Display 3
+                console.log("Original placement reformed: " + original_character_placement_id);
+                //Original placement is now in impassable location form and ready to compare. Access original_placement for resetting character position.
+
+                ///////////////////////////////////////////////////////////////////////////
+                ///////////////////////////////////////////////////////////////////////////
                 
                 
-                if(e.keyCode === 87){//Move up on kepress of "w"
+                
+                    ///////////////////////////////////////////////////////////////////////////
+                    ///////////////////////////////////////////////////////////////////////////
+                    if(sop_letter === letter_indeces[0]){//Move Up A ===> C row change 
+                    //
+                    //keyCode_down impassable
+                    //
+                    var impassable_locations_array = [];
+                    var find_impassable = document.getElementsByClassName("impassable");//This id will never equal that of character_placement id simply because of _inner
                     
-                    //This finds the current element with the class of red_background. In this example there will be only one element with this particular class at any given time.
-                    var find_location = document.getElementsByClassName("red_background");
-                    
-                    var character_placement = find_location[0].id;
-                    document.getElementById(character_placement).className = "character_placement";//Officially removes red_background class from the original or previous character placement coordinate;
-                   
-                    var split_character_placement = character_placement.split("_");//Id of character placement is now in array;
-                    
-                    var scp_grid = split_character_placement[0];//grid
-                    var scp_row_initial = split_character_placement[1];//1, 2, 3, or 4
-                    var scp_cell_initial = split_character_placement[2];//1, 2, 3, or 4
-                    var scp_subset_array = split_character_placement[3];//A, B, C, or D Needs to be checked what letter_indeces does this match?
-                    
-                    //document.getElementById('check_scp_output').innerHTML = scp_grid + scp_row_initial + scp_cell_initial + scp_subset_array + "<br/>" + letter_indeces[0] + letter_indeces[1] + letter_indeces[2] + letter_indeces[3];
-                    
-                    var new_scp_grid = scp_grid;//grid
-                    var new_scp_row_initial;
-                    var new_scp_cell_initial;
-                    var new_scp_subset_array;
-                    var new_character_placement_id;
-                    
-                    if(scp_subset_array === letter_indeces[1]){//Subset B ===> D Row change
-                        
-                        //Write logic here to add 1 to cell_initial in the character placement and set character placement as needed;
-                        //Once added 1 to cell_initial we need to reform all four id representatives and then stylize the given coordinate's id with red background.
-                        //new_character_placement_id is to be new id for the cell the character moves to;
-                        scp_row_initial = parseInt(scp_row_initial);//All scp are in string format, convert to integer for math.
-                        new_scp_row_initial = scp_row_initial - 1;
-                        new_scp_row_initial = new_scp_row_initial.toString();
-                        
-                        new_scp_cell_initial = parseInt(scp_cell_initial);//All scp are in string format, convert to integer for math.
-                        new_scp_cell_initial = new_scp_cell_initial.toString();
-                        
-                        console.log("original_cell_initial" + scp_cell_initial);
-                        console.log("new_cell_initial" + new_scp_cell_initial);
-                        
-                        new_scp_subset_array = letter_indeces[3];
-                        
-                        new_character_placement_id = new_scp_grid + "_" + new_scp_row_initial + "_" + new_scp_cell_initial + "_" + new_scp_subset_array;
-                        
-                        if(!document.getElementById(new_character_placement_id)){
-                            new_character_placement_id = split_character_placement[0] + "_" + split_character_placement[1] + "_" + split_character_placement[2] + "_" + split_character_placement[3];
-                            document.getElementById(new_character_placement_id).className = "character_placement red_background";
-                        }
-                        
-                        document.getElementById(new_character_placement_id).className = "character_placement red_background";
-                        
-                        
-                        
-                    }
-                    else if(scp_subset_array === letter_indeces[3]){//Subset D ===> B No row change
-                       
-                        //Write logic here to add 1 to cell_initial in the character placement and set character placement as needed;
-                        //Once added 1 to cell_initial we need to reform all four id representatives and then stylize the given coordinate's id with red background;
-                        //There has to be separation because the new subset array is going to vary depending on up or down in cell container;
-                        //new_character_placement_id is to be new id for the cell the character moves to; 
-                        
-                        new_scp_row_initial = parseInt(scp_row_initial);//All scp are in string format, convert to integer for math.
-                        new_scp_row_initial = new_scp_row_initial.toString();
-                        
-                        scp_cell_initial = parseInt(scp_cell_initial);//All scp are in string format, convert to integer for math.
-                        new_scp_cell_initial = scp_cell_initial;
-                        new_scp_cell_initial = new_scp_cell_initial.toString();
-                        
-                        console.log("original_cell_initial" + scp_cell_initial);
-                        console.log("new_cell_initial" + new_scp_cell_initial);
-                        
-                        new_scp_subset_array = letter_indeces[1];
-                        
-                        new_character_placement_id = new_scp_grid + "_" + new_scp_row_initial + "_" + new_scp_cell_initial + "_" + new_scp_subset_array;
-                        
-                        if(!document.getElementById(new_character_placement_id)){
-                            new_character_placement_id = split_character_placement[0] + "_" + split_character_placement[1] + "_" + split_character_placement[2] + "_" + split_character_placement[3];
-                            document.getElementById(new_character_placement_id).className = "character_placement red_background";
-                        }
-                        
-                        document.getElementById(new_character_placement_id).className = "character_placement red_background";
-                        
-                    }
-                    
-                    else if(scp_subset_array === letter_indeces[0]){//Subset A ===> C Row change
+                    var k;
+                    var l;
+                    var pseudo_array_length_01 = 8;
+                    for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
+                            console.log(find_impassable[k].id);
+                            var find_impassable_id = find_impassable[k].id;
+                            var stringify_find_impassable_id = find_impassable_id.toString();
+                            var sfi_id = stringify_find_impassable_id.split("_");
 
-                        scp_row_initial = parseInt(scp_row_initial);//All scp are in string format, convert to integer for math.
-                        new_scp_row_initial = scp_row_initial - 1;
-                        new_scp_row_initial = new_scp_row_initial.toString();
-                        
-                        scp_cell_initial = parseInt(scp_cell_initial);//All scp are in string format, convert to integer for math.
-                        new_scp_cell_initial = scp_cell_initial;
-                        new_scp_cell_initial = new_scp_cell_initial.toString();
-                        
-                        console.log("original_cell_initial" + scp_cell_initial);
-                        console.log("new_cell_initial" + new_scp_cell_initial);
-                        
-                        new_scp_subset_array = letter_indeces[2];
-                        
-                        new_character_placement_id = new_scp_grid + "_" + new_scp_row_initial + "_" + new_scp_cell_initial + "_" + new_scp_subset_array;
-                        
-                        if(!document.getElementById(new_character_placement_id)){
-                            new_character_placement_id = split_character_placement[0] + "_" + split_character_placement[1] + "_" + split_character_placement[2] + "_" + split_character_placement[3];
-                            document.getElementById(new_character_placement_id).className = "character_placement red_background";
+
+                            var impassable_row_initial = sfi_id[1];
+                            var impassable_cell_initial = sfi_id[2];
+                            var impassable_subset_array = sfi_id[3];
+                          
+                            var impassable_locations = impassable_row_initial + impassable_cell_initial + impassable_subset_array;
+                            var string_impassable_locations = impassable_locations.toString();//Ensure impassable locations typing is set to string
+                            impassable_locations_array.push(string_impassable_locations);
+                            console.log("Impassable location array  " + impassable_locations_array[l]);//Display 4
+                            //All impassable locations have been pulled successfully from this script. End for loop impassable
+                            //Format for impassable locations array = 14C, 14D, 24A, 24B, etc...
+                            
+                            var sop_row_parse = parseInt(sop_row); 
+                            var sop_column_parse = parseInt(sop_column);
+                            
+                            var new_sop_row = sop_row_parse - 1;
+                            var new_sop_column = sop_column_parse;
+                            var new_sop_letter = letter_indeces[2];
+                            
+                            var new_sop_row_string = new_sop_row.toString();
+                            var new_sop_column_string = new_sop_column.toString();
+                            
+                            var new_placement = new_sop_row_string + new_sop_column_string + new_sop_letter;
+                            var string_new_placement = new_placement.toString();
+                            
+                            var go_to_new_location = "grid_" + new_sop_row + "_" + new_sop_column + "_" + new_sop_letter;//ID for new location if permitted.
+                            var change_original = document.getElementById(original_placement);
+                            var change_new = document.getElementById(go_to_new_location);
+                            if(impassable_locations_array.indexOf(string_new_placement) > -1){
+                                
+                                change_original.className = "character_placement red_background";
+                                if(change_new === null){
+
+                                }
+                                else{
+                                change_new.className = "character_placement";
+                                }
+                                console.log("The conditional on D to C is stating that the impassable array has the value of the next coordinate somewhere.");
+                            }
+                            else{
+                                
+                                if(change_new === null){
+                                
+                                    change_new = change_original;
+                                    change_original.className = "character_placement red_background";
+                                    
+                                }else{
+                                change_original.className = "character_placement";
+                                change_new.className = "character_placement red_background";
+                                
+                                console.log("We are still waiting to see if impassable locations will be detected...");
+                                }
+                            }
+                      
                         }
-                        
-                        document.getElementById(new_character_placement_id).className = "character_placement red_background";
-                        
-                       
-                        
-                    }
-                    else{ //letter_indeces[2] Subset C ===> A No row change
-                        
-                        new_scp_row_initial = parseInt(scp_row_initial);//All scp are in string format, convert to integer for math.
-                        new_scp_row_initial = new_scp_row_initial.toString();
-                        
-                        scp_cell_initial = parseInt(scp_cell_initial);//All scp are in string format, convert to integer for math.
-                        new_scp_cell_initial = scp_cell_initial;
-                        new_scp_cell_initial = new_scp_cell_initial.toString();
-                        
-                        console.log("original_cell_initial" + scp_cell_initial);
-                        console.log("new_cell_initial" + new_scp_cell_initial);
-                        
-                        new_scp_subset_array = letter_indeces[0];
-                        
-                        new_character_placement_id = new_scp_grid + "_" + new_scp_row_initial + "_" + new_scp_cell_initial + "_" + new_scp_subset_array;
-                        
-                        if(!document.getElementById(new_character_placement_id)){
-                            new_character_placement_id = split_character_placement[0] + "_" + split_character_placement[1] + "_" + split_character_placement[2] + "_" + split_character_placement[3];
-                            document.getElementById(new_character_placement_id).className = "character_placement red_background";
-                        }
-                        
-                        document.getElementById(new_character_placement_id).className = "character_placement red_background";
-                       
-                    }
+                                   
+                    }//End letter_indeces[A] up movement to C
                     
-                }//END UP PRESS
-                    //var new_split_character_placement;
-                    //This displays the coordinate id of the character placement;
-                    document.getElementById('output_box').innerHTML = new_character_placement_id;
-                    //This displays the split coordinate id of the character placement;
-                    //new_split_character_placement = new_character_placement_id.split("_");
-                    //document.getElementById('split_output_box').innerHTML = new_split_character_placement;
-            }
-            document.onkeydown = character_movement; 
+                    /////////////////////////////////////////////////////////////////////////////
+                    /////////////////////////////////////////////////////////////////////////////
+                    
+                    
+                    
+                    
+                    ///////////////////////////////////////////////////////////////////////////
+                    ///////////////////////////////////////////////////////////////////////////
+                    if(sop_letter === letter_indeces[2]){//Move Up C ===> A no row change 
+                    //
+                    //keyCode_down impassable
+                    //
+                    var impassable_locations_array = [];
+                    var find_impassable = document.getElementsByClassName("impassable");//This id will never equal that of character_placement id simply because of _inner
+                    
+                    var k;
+                    var l;
+                    var pseudo_array_length_01 = 8;
+                    for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
+                            console.log(find_impassable[k].id);
+                            var find_impassable_id = find_impassable[k].id;
+                            var stringify_find_impassable_id = find_impassable_id.toString();
+                            var sfi_id = stringify_find_impassable_id.split("_");
+
+
+                            var impassable_row_initial = sfi_id[1];
+                            var impassable_cell_initial = sfi_id[2];
+                            var impassable_subset_array = sfi_id[3];
+                          
+                            var impassable_locations = impassable_row_initial + impassable_cell_initial + impassable_subset_array;
+                            var string_impassable_locations = impassable_locations.toString();//Ensure impassable locations typing is set to string
+                            impassable_locations_array.push(string_impassable_locations);
+                            console.log("Impassable location array  " + impassable_locations_array[l]);//Display 4
+                            //All impassable locations have been pulled successfully from this script. End for loop impassable
+                            //Format for impassable locations array = 14C, 14D, 24A, 24B, etc...
+                            
+                            var sop_row_parse = parseInt(sop_row); 
+                            var sop_column_parse = parseInt(sop_column);
+                            
+                            var new_sop_row = sop_row_parse;
+                            var new_sop_column = sop_column_parse;
+                            var new_sop_letter = letter_indeces[0];
+                            
+                            var new_sop_row_string = new_sop_row.toString();
+                            var new_sop_column_string = new_sop_column.toString();
+                            
+                            var new_placement = new_sop_row_string + new_sop_column_string + new_sop_letter;
+                            var string_new_placement = new_placement.toString();
+                            
+                            var go_to_new_location = "grid_" + new_sop_row + "_" + new_sop_column + "_" + new_sop_letter;//ID for new location if permitted.
+                            var change_original = document.getElementById(original_placement);
+                            var change_new = document.getElementById(go_to_new_location);
+                            if(impassable_locations_array.indexOf(string_new_placement) > -1){
+                                
+                                change_original.className = "character_placement red_background";
+                                if(change_new === null){
+
+                                }
+                                else{
+                                change_new.className = "character_placement";
+                                }
+                                console.log("The conditional on D to C is stating that the impassable array has the value of the next coordinate somewhere.");
+                            }
+                            else{
+                                
+                                if(change_new === null){
+                                
+                                    change_new = change_original;
+                                    change_original.className = "character_placement red_background";
+                                    
+                                }else{
+                                change_original.className = "character_placement";
+                                change_new.className = "character_placement red_background";
+                                
+                                console.log("We are still waiting to see if impassable locations will be detected...");
+                                }
+                            }
+                      
+                        }
+                                   
+                    }//End letter_indeces[C] up movement to A
+                    
+                    /////////////////////////////////////////////////////////////////////////////
+                    /////////////////////////////////////////////////////////////////////////////
+                    
+                    
+                    ///////////////////////////////////////////////////////////////////////////
+                    ///////////////////////////////////////////////////////////////////////////
+                    if(sop_letter === letter_indeces[3]){//Move Up D ===> B no row change 
+                    //
+                    //keyCode_down impassable
+                    //
+                    var impassable_locations_array = [];
+                    var find_impassable = document.getElementsByClassName("impassable");//This id will never equal that of character_placement id simply because of _inner
+                    
+                    var k;
+                    var l;
+                    var pseudo_array_length_01 = 8;
+                    for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
+                            console.log(find_impassable[k].id);
+                            var find_impassable_id = find_impassable[k].id;
+                            var stringify_find_impassable_id = find_impassable_id.toString();
+                            var sfi_id = stringify_find_impassable_id.split("_");
+
+
+                            var impassable_row_initial = sfi_id[1];
+                            var impassable_cell_initial = sfi_id[2];
+                            var impassable_subset_array = sfi_id[3];
+                          
+                            var impassable_locations = impassable_row_initial + impassable_cell_initial + impassable_subset_array;
+                            var string_impassable_locations = impassable_locations.toString();//Ensure impassable locations typing is set to string
+                            impassable_locations_array.push(string_impassable_locations);
+                            console.log("Impassable location array  " + impassable_locations_array[l]);//Display 4
+                            //All impassable locations have been pulled successfully from this script. End for loop impassable
+                            //Format for impassable locations array = 14C, 14D, 24A, 24B, etc...
+                            
+                            var sop_row_parse = parseInt(sop_row); 
+                            var sop_column_parse = parseInt(sop_column);
+                            
+                            var new_sop_row = sop_row_parse;
+                            var new_sop_column = sop_column_parse;
+                            var new_sop_letter = letter_indeces[1];
+                            
+                            var new_sop_row_string = new_sop_row.toString();
+                            var new_sop_column_string = new_sop_column.toString();
+                            
+                            var new_placement = new_sop_row_string + new_sop_column_string + new_sop_letter;
+                            var string_new_placement = new_placement.toString();
+                            
+                            var go_to_new_location = "grid_" + new_sop_row + "_" + new_sop_column + "_" + new_sop_letter;//ID for new location if permitted.
+                            var change_original = document.getElementById(original_placement);
+                            var change_new = document.getElementById(go_to_new_location);
+                            if(impassable_locations_array.indexOf(string_new_placement) > -1){
+                                
+                                change_original.className = "character_placement red_background";
+                                if(change_new === null){
+
+                                }
+                                else{
+                                change_new.className = "character_placement";
+                                }
+                                console.log("The conditional on D to C is stating that the impassable array has the value of the next coordinate somewhere.");
+                            }
+                            else{
+                                
+                                if(change_new === null){
+                                
+                                    change_new = change_original;
+                                    change_original.className = "character_placement red_background";
+                                    
+                                }else{
+                                change_original.className = "character_placement";
+                                change_new.className = "character_placement red_background";
+                                
+                                console.log("We are still waiting to see if impassable locations will be detected...");
+                                }
+                            }
+                      
+                        }
+                                   
+                    }//End letter_indeces[D] up movement to B
+                    
+                    /////////////////////////////////////////////////////////////////////////////
+                    /////////////////////////////////////////////////////////////////////////////
+                    
+                    
+                    ///////////////////////////////////////////////////////////////////////////
+                    ///////////////////////////////////////////////////////////////////////////
+                    if(sop_letter === letter_indeces[1]){//Move Up B ===> D row change 
+                    //
+                    //keyCode_down impassable
+                    //
+                    var impassable_locations_array = [];
+                    var find_impassable = document.getElementsByClassName("impassable");//This id will never equal that of character_placement id simply because of _inner
+                    
+                    var k;
+                    var l;
+                    var pseudo_array_length_01 = 8;
+                    for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
+                            console.log(find_impassable[k].id);
+                            var find_impassable_id = find_impassable[k].id;
+                            var stringify_find_impassable_id = find_impassable_id.toString();
+                            var sfi_id = stringify_find_impassable_id.split("_");
+
+
+                            var impassable_row_initial = sfi_id[1];
+                            var impassable_cell_initial = sfi_id[2];
+                            var impassable_subset_array = sfi_id[3];
+                          
+                            var impassable_locations = impassable_row_initial + impassable_cell_initial + impassable_subset_array;
+                            var string_impassable_locations = impassable_locations.toString();//Ensure impassable locations typing is set to string
+                            impassable_locations_array.push(string_impassable_locations);
+                            console.log("Impassable location array  " + impassable_locations_array[l]);//Display 4
+                            //All impassable locations have been pulled successfully from this script. End for loop impassable
+                            //Format for impassable locations array = 14C, 14D, 24A, 24B, etc...
+                            
+                            var sop_row_parse = parseInt(sop_row); 
+                            var sop_column_parse = parseInt(sop_column);
+                            
+                            var new_sop_row = sop_row_parse - 1;
+                            var new_sop_column = sop_column_parse;
+                            var new_sop_letter = letter_indeces[3];
+                            
+                            var new_sop_row_string = new_sop_row.toString();
+                            var new_sop_column_string = new_sop_column.toString();
+                            
+                            var new_placement = new_sop_row_string + new_sop_column_string + new_sop_letter;
+                            var string_new_placement = new_placement.toString();
+                            
+                            var go_to_new_location = "grid_" + new_sop_row + "_" + new_sop_column + "_" + new_sop_letter;//ID for new location if permitted.
+                            var change_original = document.getElementById(original_placement);
+                            var change_new = document.getElementById(go_to_new_location);
+                            if(impassable_locations_array.indexOf(string_new_placement) > -1){
+                                
+                                change_original.className = "character_placement red_background";
+                                if(change_new === null){
+
+                                }
+                                else{
+                                change_new.className = "character_placement";
+                                }
+                                console.log("The conditional on D to C is stating that the impassable array has the value of the next coordinate somewhere.");
+                            }
+                            else{
+                                
+                                if(change_new === null){
+                                
+                                    change_new = change_original;
+                                    change_original.className = "character_placement red_background";
+                                    
+                                }else{
+                                change_original.className = "character_placement";
+                                change_new.className = "character_placement red_background";
+                                
+                                console.log("We are still waiting to see if impassable locations will be detected...");
+                                }
+                            }
+                      
+                        }
+                                   
+                    }//End letter_indeces[B] up movement to D
+                    
+                    /////////////////////////////////////////////////////////////////////////////
+                    /////////////////////////////////////////////////////////////////////////////
+                    
+                    
+                
+                }//End keyCode W up movement             
+            }//End function for input
+            
+            //Necessary for receiving keypress information
+            document.onkeydown = character_movement;
+            
+            

@@ -234,7 +234,8 @@ applied specifically to that square. ID's cannot have space characters.
 ------------------------------>
 <!-- Player Movement Controls -->
 <script src="js/player_movement.js"></script>
-<!--Debugging -->
+
+<!-- Debug script -->
 <script src="js/debug.js"></script>
 <script>
     
@@ -254,6 +255,8 @@ var object_location = [
     "grid_2_4_B_inner"
     
 ]; 
+
+
  //01 of every variable has to contain the image needed and be the top left of the location needed. Easy just use [0] index of array.
  //Need to be able to define in a variable how many squares the image will take up and automate from there the ids of the squares needed as object location.
       
@@ -263,37 +266,35 @@ var object_location = [
             first_object_location.backgroundSize = "100px 100px";
             first_object_location.style.overflow = "visible";
             
+
+            
     
         var j;
         for(j = 0;j < object_location.length;j++){
             var d = document.getElementById(object_location[j]);
             d.className += " impassable";
+        };
+        
+        var object_location_02 = [
+    
+    
+    "grid_3_4_A_inner",
+    "grid_3_4_B_inner",
+    "grid_3_4_C_inner",
+    "grid_3_4_D_inner"
+];
+        
+        var first_object_location_02 = document.getElementById(object_location_02[0]);
+            first_object_location_02.innerHTML = "<img src='img/boulder.png' />";
+            first_object_location_02.backgroundSize = "100px 100px";
+            first_object_location_02.style.overflow = "visible";
+        
+        var s;
+        for(s = 0;s < object_location_02.length;s++){
+            var e = document.getElementById(object_location_02[s]);
+            e.className += " impassable";
+        };
 
-//          var collect_object_location = document.getElementById(object_location[j]);
-//          var split_object_location = collect_object_location.split("_");
-
-        }
-//        var old_character_placement_id = character_placement; 
-//        var new_character_placement_id;
-//
-//        var find_impassable = document.getElementsByClassName("impassable");//This id will never equal that of character_placement id simply because of _inner
-//        var k;
-//        for(k = 0;k < find_impassable.length; k++){
-//            
-//           var find_impassable_id  = find_impassable[k].id;
-//           var sfi_id = find_impassable_id.split("_");
-//           var scp_id_02 = new_character_placement_id.split("_");//Re-split new_character_placement_id and give unique variable name.
-//           
-//           var esfi_id = sfi_id[0] + sfi_id[1] + sfi_id[2] + sfi_id[3];//"Equality split_find_impassable_id"
-//           var escp_id_02 = scp_id_02[0] + scp_id_02[1] + scp_id_02[2] + scp_id_02[3];
-//           
-//           if(esfi_id === escp_id_02){
-//               
-//               new_character_placement_id = old_character_placement;
-//               
-//           }
-//        }
- 
  //TO DO: Build a way to keep the player for the most part centered on the screen when moving. 
 </script>
 <!------------------------------------------------------------------------------>
