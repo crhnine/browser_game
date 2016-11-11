@@ -11,3 +11,4 @@ Things that need to be done:
 5. Build character sets list on the backend and supply the character's set locally. This will require setting specific values so that the profile knows what moveset to retrieve. 
 6. Place in coordinates for random encounters and then build the turn-based battle screen. Random number generator for encounters.
 7. Either begin artwork myself or try to assemble a team to work passionately on the art style or theme they would enjoy working on. 
+8. Begin plan to keep character on or near middle of screen. Most likely the easiest way to do this would be to on key press scroll 25px in the same direction. 
