@@ -1423,6 +1423,6 @@
             }//End function for input
             
             //Necessary for receiving keypress information
-            document.onkeydown = character_movement;
+            document.addEventListener('keydown', character_movement, false);
             
             

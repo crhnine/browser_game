@@ -1,23 +1,23 @@
 <!-- http://legithtml.com/plugins/grid.php -->
 <?php
     
-//   if(!filter_input(INPUT_POST, 'width', FILTER_SANITIZE_STRING)){
-//       
-//       echo 'Set width is not a proper input';
-//   }
-//   else{
-//
-//   $grid_set_width = filter_input(INPUT_POST,'width', FILTER_SANITIZE_STRING);
-//   }
-//   
-//   if(!filter_input(INPUT_POST, 'height', FILTER_SANITIZE_STRING)){
-//       
-//       echo 'Set height is not a proper input';
-//   }
-//   else{
-//   $grid_set_height = filter_input(INPUT_POST,'height', FILTER_SANITIZE_STRING);
-//   
-//   }
+   if(!filter_input(INPUT_POST, 'width', FILTER_SANITIZE_STRING)){
+       
+       echo 'Set width is not a proper input';
+   }
+   else{
+
+   $grid_set_width = filter_input(INPUT_POST,'width', FILTER_SANITIZE_STRING);
+   }
+   
+   if(!filter_input(INPUT_POST, 'height', FILTER_SANITIZE_STRING)){
+       
+       echo 'Set height is not a proper input';
+   }
+   else{
+   $grid_set_height = filter_input(INPUT_POST,'height', FILTER_SANITIZE_STRING);
+   
+   }
    $height = 3000;//$grid_set_height;//This height is based on pixels; Needs to be a division of 100 even.
    $width = 3000;//$grid_set_width;//This width is based on pixels;
    $border_setting = 50;
@@ -109,21 +109,28 @@ $(function (){
     </style>
 </head>
 <body>
-    
-<?php
-
+    <?php
     
     echo '<div class="menu_container" style="width:100%;height:600px;position:fixed;z-index:80;">';
-    echo '<div style="width:150px;height:800px;position:relative;background-color:grey;float:left;top:-10px;left:-10px;border:2px solid #1e1e1e;">'
+    echo  '<div style="width:150px;height:800px;position:relative;background-color:grey;float:left;top:-10px;left:-10px;border:2px solid #1e1e1e;">'
+    
             . '<ul style="line-height:150%;padding-left:10px;list-style:none;color:white;font-size:24px;font-weight:700;-webkit-text-stroke-width: 1px;-moz-text-stroke-width: 1px;text-stroke-width: 1px;-webkit-text-stroke-color: black;-moz-text-stroke-color: black;text-stroke-color: black;">'
-            . '<li><a href="#" onclick="inventoryMenu()" style="text-decoration:none;color:white;">Inventory</a></li>'
-            . '<li><a href="#" onclick="playerMenu()" style="text-decoration:none;color:white;">Player Info</a></li>'
+                . '<li><a href="#" onclick="inventoryMenu()" style="text-decoration:none;color:white;">Inventory</a></li>'
+                . '<li><a href="#" onclick="playerMenu()" style="text-decoration:none;color:white;">Player Info</a></li>'
             . '</ul>'
-           . '</div>';
-    echo '<div style="width:150px;height:800px;position:relative;background-color:red;float:right;top:-10px;border:2px solid #1e1e1e;"></div>';
-    echo '</div>';
-
+            
+          . '</div>'
+          . '<div style="width:15%;position:relative;float:right;top:-10px;border:2px solid #1e1e1e;">'
+            . '<div style="height:400px;background-color:red;"></div>'
+            . '<div style="height:200px;background-color:white;"></div>'
+            . '<div style="height:200px;background-color:#ccc;"></div>'
+          . '</div>'
+            
+        . '</div>';
 ?>
+    
+    
+    
 <div style="width:100%;background-color:#ccc;margin-bottom:25px;height:100px;box-sizing:border-box;padding-left:1%;padding-top:5px;">
     <div style="width:20%;float:left;">
 
@@ -159,9 +166,6 @@ $(function (){
 <h3>This grid lays the platform for building a game. The grey outlined boxes represent the actual coordinates that the player's character is sitting whereas the red represent the containers to hold the character image. Right now I have put the character to an offset of the actual grid coordinate.</h3>
 </div>
 <?php
-
-
-
    $subset_array = array(
 
          0 => "A",
@@ -170,7 +174,7 @@ $(function (){
          3 => "D"
    );
    $print_cell = ($height / 100) * ($width / 100);
-   echo '<div style="width:100%;margin-left:35px;margin-right:35px;margin-bottom:35px;position:absolute;z-index:30;">';//Overall Container
+   echo '<div style="width:100%;margin-left:35px;margin-right:35px;margin-bottom:35px;position:absolute;z-index:25;">';//Overall Container
    echo '<div style="margin:0 auto;width:'.$shell_width.'px;background-image:url(\'img/campaign_green_field_cover_no_fade.png\');">';//Centering Container
    echo '<div class="border" style="width:'.$top_bottom_border_width.';height:'.$border_setting.'px;padding-bottom:10px;background-color:#303030;background-image:url(\'img/tree.png\');background-repeat:repeat-x;"></div>';//Top
    echo '<div class="border" style="width:'.$border_setting.'px;height:'.$right_left_border_height.'px;float:left;padding-right:10px;background-color:#303030;background-image:url(\'img/tree.png\');background-repeat:repeat-y;overflow:visible;"></div>';//Left
@@ -254,8 +258,6 @@ applied specifically to that square. ID's cannot have space characters.
 <script src="js/player_movement.js"></script>
 <!-- Interactions Controls -->
 <script src="js/interaction.js"></script>
-<!-- Menu Controls -->
-<script src="js/menu.js"></script>
 <!-- Debug script -->
 <script src="js/debug.js"></script>
 <script>
@@ -317,5 +319,6 @@ var object_location = [
         };
 
  //TO DO: Build a way to keep the player for the most part centered on the screen when moving. 
+ 
 </script>
 <!------------------------------------------------------------------------------>

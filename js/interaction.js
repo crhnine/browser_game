@@ -16,5 +16,4 @@ function interaction(e){
 
 }
 
-
-document.onkeydown = interaction;
+document.addEventListener('keydown', interaction, false);
