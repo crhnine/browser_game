@@ -112,19 +112,34 @@ $(function (){
 <body>
     <?php
     
+<<<<<<< HEAD
     echo '<div id="menu_container" class="menu_container" style="width:100%;height:600px;position:fixed;z-index:80;">';
     echo  '<div style="width:150px;height:800px;position:relative;background-color:grey;float:left;top:-10px;left:-10px;border:2px solid #1e1e1e;">'
     
             . '<ul class="menu_font_style" style="line-height:150%;padding-left:10px;list-style:none;">'
                 . '<li><a class="menu_item" href="#" onclick="inventoryMenu()">Inventory</a></li>'
                 . '<li><a class="menu_item" href="#" onclick="playerMenu()">Player Info</a></li>'
+=======
+    echo '<div class="menu_container" style="width:100%;height:600px;position:fixed;z-index:80;">';
+    echo  '<div style="width:150px;height:800px;position:relative;background-color:grey;float:left;top:-10px;left:-10px;border:2px solid #1e1e1e;">'
+    
+            . '<ul style="line-height:150%;padding-left:10px;list-style:none;color:white;font-size:24px;font-weight:700;-webkit-text-stroke-width: 1px;-moz-text-stroke-width: 1px;text-stroke-width: 1px;-webkit-text-stroke-color: black;-moz-text-stroke-color: black;text-stroke-color: black;">'
+                . '<li><a href="#" onclick="inventoryMenu()" style="text-decoration:none;color:white;">Inventory</a></li>'
+                . '<li><a href="#" onclick="playerMenu()" style="text-decoration:none;color:white;">Player Info</a></li>'
+>>>>>>> 66d26d2c5df178b95e88676f6c13dfe231027aed
             . '</ul>'
             
           . '</div>'
           . '<div style="width:15%;position:relative;float:right;top:-10px;border:2px solid #1e1e1e;">'
+<<<<<<< HEAD
             . '<div class="menu_font_style" style="height:400px;background-color:red;">Key Items</div>'
             . '<div class="menu_font_style" style="height:200px;background-color:white;"></div>'
             . '<div class="menu_font_style" style="height:200px;background-color:#ccc;"></div>'
+=======
+            . '<div style="height:400px;background-color:red;"></div>'
+            . '<div style="height:200px;background-color:white;"></div>'
+            . '<div style="height:200px;background-color:#ccc;"></div>'
+>>>>>>> 66d26d2c5df178b95e88676f6c13dfe231027aed
           . '</div>'
             
         . '</div>';
