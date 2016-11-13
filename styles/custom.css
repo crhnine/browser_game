@@ -1,0 +1,27 @@
+﻿body
+{
+}
+
+.menu_item{
+
+    text-decoration:none;
+    color:white;
+}
+
+.menu_item:hover{
+
+    color:blue;
+
+}
+
+.menu_font_style{
+
+    color:white;
+    font-size:24px;
+    font-weight:700;
+    -webkit-text-stroke-width: 1px;
+    -moz-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+    -moz-text-stroke-color: black;
+
+}

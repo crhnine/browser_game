@@ -90,7 +90,7 @@ $(function (){
 <head>
     <meta charset="utf-8" />
     <title></title>
-
+    <link href="styles/custom.css" rel="stylesheet" type="text/css" />
     <style>
 
     .zone_container:hover{
@@ -105,10 +105,33 @@ $(function (){
         background-image: url('img/test_image.png');
         background-size: 50px 65px;
     }
+    
 
     </style>
 </head>
 <body>
+    <?php
+    
+    echo '<div id="menu_container" class="menu_container" style="width:100%;height:600px;position:fixed;z-index:80;">';
+    echo  '<div style="width:150px;height:800px;position:relative;background-color:grey;float:left;top:-10px;left:-10px;border:2px solid #1e1e1e;">'
+    
+            . '<ul class="menu_font_style" style="line-height:150%;padding-left:10px;list-style:none;">'
+                . '<li><a class="menu_item" href="#" onclick="inventoryMenu()">Inventory</a></li>'
+                . '<li><a class="menu_item" href="#" onclick="playerMenu()">Player Info</a></li>'
+            . '</ul>'
+            
+          . '</div>'
+          . '<div style="width:15%;position:relative;float:right;top:-10px;border:2px solid #1e1e1e;">'
+            . '<div class="menu_font_style" style="height:400px;background-color:red;">Key Items</div>'
+            . '<div class="menu_font_style" style="height:200px;background-color:white;"></div>'
+            . '<div class="menu_font_style" style="height:200px;background-color:#ccc;"></div>'
+          . '</div>'
+            
+        . '</div>';
+?>
+    
+    
+    
 <div style="width:100%;background-color:#ccc;margin-bottom:25px;height:100px;box-sizing:border-box;padding-left:1%;padding-top:5px;">
     <div style="width:20%;float:left;">
 
@@ -152,7 +175,7 @@ $(function (){
          3 => "D"
    );
    $print_cell = ($height / 100) * ($width / 100);
-   echo '<div style="width:100%;margin-left:35px;margin-right:35px;margin-bottom:35px;">';//Overall Container
+   echo '<div style="width:100%;margin-left:35px;margin-right:35px;margin-bottom:35px;position:absolute;z-index:25;">';//Overall Container
    echo '<div style="margin:0 auto;width:'.$shell_width.'px;background-image:url(\'img/campaign_green_field_cover_no_fade.png\');">';//Centering Container
    echo '<div class="border" style="width:'.$top_bottom_border_width.';height:'.$border_setting.'px;padding-bottom:10px;background-color:#303030;background-image:url(\'img/tree.png\');background-repeat:repeat-x;"></div>';//Top
    echo '<div class="border" style="width:'.$border_setting.'px;height:'.$right_left_border_height.'px;float:left;padding-right:10px;background-color:#303030;background-image:url(\'img/tree.png\');background-repeat:repeat-y;overflow:visible;"></div>';//Left
@@ -234,7 +257,8 @@ applied specifically to that square. ID's cannot have space characters.
 ------------------------------>
 <!-- Player Movement Controls -->
 <script src="js/player_movement.js"></script>
-
+<!-- Interactions Controls -->
+<script src="js/interaction.js"></script>
 <!-- Debug script -->
 <script src="js/debug.js"></script>
 <script>
@@ -247,54 +271,81 @@ applied specifically to that square. ID's cannot have space characters.
 
 
 //Name the coordinates here and then later we can split the ids as needed or just pull them straight from this array.
-var object_location = [
-    
-    "grid_1_4_C_inner",
-    "grid_1_4_D_inner",
-    "grid_2_4_A_inner",
-    "grid_2_4_B_inner"
-    
-]; 
+        var object_location = [
+            "grid_1_4_C_inner",
+            "grid_1_4_D_inner",
+            "grid_2_4_A_inner",
+            "grid_2_4_B_inner"
+        ]; 
 
 
  //01 of every variable has to contain the image needed and be the top left of the location needed. Easy just use [0] index of array.
  //Need to be able to define in a variable how many squares the image will take up and automate from there the ids of the squares needed as object location.
-      
-            
+                 
         var first_object_location = document.getElementById(object_location[0]);
             first_object_location.innerHTML = "<img src='img/boulder.png' />";
             first_object_location.backgroundSize = "100px 100px";
             first_object_location.style.overflow = "visible";
-            
-
-            
-    
+               
         var j;
         for(j = 0;j < object_location.length;j++){
             var d = document.getElementById(object_location[j]);
             d.className += " impassable";
         };
         
-        var object_location_02 = [
-    
-    
-    "grid_3_4_A_inner",
-    "grid_3_4_B_inner",
-    "grid_3_4_C_inner",
-    "grid_3_4_D_inner"
-];
+        var object_location_02 = [    
+            "grid_3_4_A_inner",
+            "grid_3_4_B_inner",
+            "grid_3_4_C_inner",
+            "grid_3_4_D_inner"
+        ];
         
         var first_object_location_02 = document.getElementById(object_location_02[0]);
             first_object_location_02.innerHTML = "<img src='img/boulder.png' />";
             first_object_location_02.backgroundSize = "100px 100px";
             first_object_location_02.style.overflow = "visible";
-        
+      
         var s;
         for(s = 0;s < object_location_02.length;s++){
             var e = document.getElementById(object_location_02[s]);
             e.className += " impassable";
         };
 
+
+        var house_location = [
+            
+            "grid_4_6_A_inner",
+            "grid_4_6_B_inner",
+            "grid_4_6_C_inner",
+            "grid_4_6_D_inner",
+            "grid_4_7_A_inner",
+            "grid_4_7_B_inner",
+            "grid_4_7_C_inner",
+            "grid_4_7_D_inner",
+            "grid_5_6_A_inner",
+            "grid_5_6_B_inner",
+            "grid_5_6_C_inner",
+            "grid_5_6_D_inner",
+            "grid_5_7_A_inner",
+            "grid_5_7_B_inner",
+            "grid_5_7_C_inner",
+            "grid_5_7_D_inner"
+            
+        ];
+        
+        var first_house_location = document.getElementById(house_location[0]);
+        first_house_location.innerHTML = "<img src='img/winter_house.png' />";
+        first_house_location.backgroundSize = "200px 200px";
+        first_house_location.style.overflow = "visible";
+
+
+        var ta;
+        for(ta = 0;ta < house_location.length;ta++){
+            var fa = document.getElementById(house_location[ta]);
+            fa.className += " impassable";
+        };
+
  //TO DO: Build a way to keep the player for the most part centered on the screen when moving. 
+ 
 </script>
 <!------------------------------------------------------------------------------>

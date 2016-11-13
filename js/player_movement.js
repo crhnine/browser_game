@@ -77,7 +77,7 @@
                     
                     var k;
                     var l;
-                    var pseudo_array_length_01 = 8;
+                    var pseudo_array_length_01 = 24;
                     for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
                             console.log(find_impassable[k].id);
                             var find_impassable_id = find_impassable[k].id;
@@ -153,7 +153,7 @@
                     
                     var k;
                     var l;
-                    var pseudo_array_length_01 = 8;
+                    var pseudo_array_length_01 = 24;
                     impassable_loop:
                     for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
                             console.log(find_impassable[k].id);
@@ -237,7 +237,7 @@
                     
                     var k;
                     var l;
-                    var pseudo_array_length_01 = 8;
+                    var pseudo_array_length_01 = 24;
                     impassable_loop:
                     for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
                             console.log(find_impassable[k].id);
@@ -320,7 +320,7 @@
                     
                     var k;
                     var l;
-                    var pseudo_array_length_01 = 8;
+                    var pseudo_array_length_01 = 24;
                     for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
                             console.log(find_impassable[k].id);
                             var find_impassable_id = find_impassable[k].id;
@@ -423,7 +423,7 @@
                     
                     var k;
                     var l;
-                    var pseudo_array_length_01 = 8;
+                    var pseudo_array_length_01 = 24;
                     for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
                             console.log(find_impassable[k].id);
                             var find_impassable_id = find_impassable[k].id;
@@ -499,7 +499,7 @@
                     
                     var k;
                     var l;
-                    var pseudo_array_length_01 = 8;
+                    var pseudo_array_length_01 = 24;
                     impassable_loop:
                     for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
                             console.log(find_impassable[k].id);
@@ -583,7 +583,7 @@
                     
                     var k;
                     var l;
-                    var pseudo_array_length_01 = 8;
+                    var pseudo_array_length_01 = 24;
                     impassable_loop:
                     for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
                             console.log(find_impassable[k].id);
@@ -666,7 +666,7 @@
                     
                     var k;
                     var l;
-                    var pseudo_array_length_01 = 8;
+                    var pseudo_array_length_01 = 24;
                     for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
                             console.log(find_impassable[k].id);
                             var find_impassable_id = find_impassable[k].id;
@@ -767,7 +767,7 @@
                     
                     var k;
                     var l;
-                    var pseudo_array_length_01 = 8;
+                    var pseudo_array_length_01 = 24;
                     for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
                             console.log(find_impassable[k].id);
                             var find_impassable_id = find_impassable[k].id;
@@ -846,7 +846,7 @@
                     
                     var k;
                     var l;
-                    var pseudo_array_length_01 = 8;
+                    var pseudo_array_length_01 = 24;
                     for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
                             console.log(find_impassable[k].id);
                             var find_impassable_id = find_impassable[k].id;
@@ -923,7 +923,7 @@
                     
                     var k;
                     var l;
-                    var pseudo_array_length_01 = 8;
+                    var pseudo_array_length_01 = 24;
                     for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
                             console.log(find_impassable[k].id);
                             var find_impassable_id = find_impassable[k].id;
@@ -1003,7 +1003,7 @@
                     
                     var k;
                     var l;
-                    var pseudo_array_length_01 = 8;
+                    var pseudo_array_length_01 = 24;
                     for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
                             console.log(find_impassable[k].id);
                             var find_impassable_id = find_impassable[k].id;
@@ -1107,7 +1107,7 @@
                     
                     var k;
                     var l;
-                    var pseudo_array_length_01 = 8;
+                    var pseudo_array_length_01 = 24;
                     for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
                             console.log(find_impassable[k].id);
                             var find_impassable_id = find_impassable[k].id;
@@ -1189,7 +1189,7 @@
                     
                     var k;
                     var l;
-                    var pseudo_array_length_01 = 8;
+                    var pseudo_array_length_01 = 24;
                     for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
                             console.log(find_impassable[k].id);
                             var find_impassable_id = find_impassable[k].id;
@@ -1269,7 +1269,7 @@
                     
                     var k;
                     var l;
-                    var pseudo_array_length_01 = 8;
+                    var pseudo_array_length_01 = 24;
                     for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
                             console.log(find_impassable[k].id);
                             var find_impassable_id = find_impassable[k].id;
@@ -1349,7 +1349,7 @@
                     
                     var k;
                     var l;
-                    var pseudo_array_length_01 = 8;
+                    var pseudo_array_length_01 = 24;
                     for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
                             console.log(find_impassable[k].id);
                             var find_impassable_id = find_impassable[k].id;
@@ -1423,6 +1423,6 @@
             }//End function for input
             
             //Necessary for receiving keypress information
-            document.onkeydown = character_movement;
+            document.addEventListener('keydown', character_movement, false);
             
             
