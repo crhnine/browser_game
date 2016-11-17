@@ -25,3 +25,10 @@
     -moz-text-stroke-color: black;
 
 }
+
+.img_btm_right{
+    
+    position:absolute;
+    bottom:25%;
+    right:25%;
+}

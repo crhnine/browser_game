@@ -1,4 +1,5 @@
 // JavaScript source code
+// <!-- 11.16.16 -->
            //Player Starting point subject to be changed based on map or random selection between a few points to possibly add challenge.
            var initial_spawn = document.getElementById('grid_3_6_B');
            initial_spawn.className = "character_placement red_background";
@@ -77,9 +78,9 @@
                     
                     var k;
                     var l;
-                    var pseudo_array_length_01 = 24;
+                    var pseudo_array_length_01 = 17;
                     for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
-                            console.log(find_impassable[k].id);
+//                            console.log(find_impassable[k].id);
                             var find_impassable_id = find_impassable[k].id;
                             var stringify_find_impassable_id = find_impassable_id.toString();
                             var sfi_id = stringify_find_impassable_id.split("_");
@@ -153,10 +154,10 @@
                     
                     var k;
                     var l;
-                    var pseudo_array_length_01 = 24;
+                    var pseudo_array_length_01 = 17;
                     impassable_loop:
                     for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
-                            console.log(find_impassable[k].id);
+//                            console.log(find_impassable[k].id);
                             var find_impassable_id = find_impassable[k].id;
                             var stringify_find_impassable_id = find_impassable_id.toString();
                             var sfi_id = stringify_find_impassable_id.split("_");
@@ -237,10 +238,10 @@
                     
                     var k;
                     var l;
-                    var pseudo_array_length_01 = 24;
+                    var pseudo_array_length_01 = 17;
                     impassable_loop:
                     for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
-                            console.log(find_impassable[k].id);
+//                            console.log(find_impassable[k].id);
                             var find_impassable_id = find_impassable[k].id;
                             var stringify_find_impassable_id = find_impassable_id.toString();
                             var sfi_id = stringify_find_impassable_id.split("_");
@@ -320,9 +321,9 @@
                     
                     var k;
                     var l;
-                    var pseudo_array_length_01 = 24;
+                    var pseudo_array_length_01 = 17;
                     for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
-                            console.log(find_impassable[k].id);
+//                            console.log(find_impassable[k].id);
                             var find_impassable_id = find_impassable[k].id;
                             var stringify_find_impassable_id = find_impassable_id.toString();
                             var sfi_id = stringify_find_impassable_id.split("_");
@@ -423,9 +424,9 @@
                     
                     var k;
                     var l;
-                    var pseudo_array_length_01 = 24;
+                    var pseudo_array_length_01 = 17;
                     for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
-                            console.log(find_impassable[k].id);
+//                            console.log(find_impassable[k].id);
                             var find_impassable_id = find_impassable[k].id;
                             var stringify_find_impassable_id = find_impassable_id.toString();
                             var sfi_id = stringify_find_impassable_id.split("_");
@@ -499,10 +500,10 @@
                     
                     var k;
                     var l;
-                    var pseudo_array_length_01 = 24;
+                    var pseudo_array_length_01 = 17;
                     impassable_loop:
                     for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
-                            console.log(find_impassable[k].id);
+//                            console.log(find_impassable[k].id);
                             var find_impassable_id = find_impassable[k].id;
                             var stringify_find_impassable_id = find_impassable_id.toString();
                             var sfi_id = stringify_find_impassable_id.split("_");
@@ -583,10 +584,10 @@
                     
                     var k;
                     var l;
-                    var pseudo_array_length_01 = 24;
+                    var pseudo_array_length_01 = 17;
                     impassable_loop:
                     for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
-                            console.log(find_impassable[k].id);
+//                            console.log(find_impassable[k].id);
                             var find_impassable_id = find_impassable[k].id;
                             var stringify_find_impassable_id = find_impassable_id.toString();
                             var sfi_id = stringify_find_impassable_id.split("_");
@@ -666,9 +667,9 @@
                     
                     var k;
                     var l;
-                    var pseudo_array_length_01 = 24;
+                    var pseudo_array_length_01 = 17;
                     for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
-                            console.log(find_impassable[k].id);
+//                            console.log(find_impassable[k].id);
                             var find_impassable_id = find_impassable[k].id;
                             var stringify_find_impassable_id = find_impassable_id.toString();
                             var sfi_id = stringify_find_impassable_id.split("_");
@@ -767,9 +768,9 @@
                     
                     var k;
                     var l;
-                    var pseudo_array_length_01 = 24;
+                    var pseudo_array_length_01 = 17;
                     for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
-                            console.log(find_impassable[k].id);
+//                            console.log(find_impassable[k].id);
                             var find_impassable_id = find_impassable[k].id;
                             var stringify_find_impassable_id = find_impassable_id.toString();
                             var sfi_id = stringify_find_impassable_id.split("_");
@@ -846,9 +847,9 @@
                     
                     var k;
                     var l;
-                    var pseudo_array_length_01 = 24;
+                    var pseudo_array_length_01 = 17;
                     for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
-                            console.log(find_impassable[k].id);
+//                            console.log(find_impassable[k].id);
                             var find_impassable_id = find_impassable[k].id;
                             var stringify_find_impassable_id = find_impassable_id.toString();
                             var sfi_id = stringify_find_impassable_id.split("_");
@@ -923,9 +924,9 @@
                     
                     var k;
                     var l;
-                    var pseudo_array_length_01 = 24;
+                    var pseudo_array_length_01 = 17;
                     for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
-                            console.log(find_impassable[k].id);
+//                            console.log(find_impassable[k].id);
                             var find_impassable_id = find_impassable[k].id;
                             var stringify_find_impassable_id = find_impassable_id.toString();
                             var sfi_id = stringify_find_impassable_id.split("_");
@@ -1003,9 +1004,9 @@
                     
                     var k;
                     var l;
-                    var pseudo_array_length_01 = 24;
+                    var pseudo_array_length_01 = 17;
                     for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
-                            console.log(find_impassable[k].id);
+//                            console.log(find_impassable[k].id);
                             var find_impassable_id = find_impassable[k].id;
                             var stringify_find_impassable_id = find_impassable_id.toString();
                             var sfi_id = stringify_find_impassable_id.split("_");
@@ -1107,9 +1108,9 @@
                     
                     var k;
                     var l;
-                    var pseudo_array_length_01 = 24;
+                    var pseudo_array_length_01 = 17;
                     for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
-                            console.log(find_impassable[k].id);
+//                            console.log(find_impassable[k].id);
                             var find_impassable_id = find_impassable[k].id;
                             var stringify_find_impassable_id = find_impassable_id.toString();
                             var sfi_id = stringify_find_impassable_id.split("_");
@@ -1189,9 +1190,9 @@
                     
                     var k;
                     var l;
-                    var pseudo_array_length_01 = 24;
+                    var pseudo_array_length_01 = 17;
                     for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
-                            console.log(find_impassable[k].id);
+//                            console.log(find_impassable[k].id);
                             var find_impassable_id = find_impassable[k].id;
                             var stringify_find_impassable_id = find_impassable_id.toString();
                             var sfi_id = stringify_find_impassable_id.split("_");
@@ -1269,9 +1270,9 @@
                     
                     var k;
                     var l;
-                    var pseudo_array_length_01 = 24;
+                    var pseudo_array_length_01 = 17;
                     for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
-                            console.log(find_impassable[k].id);
+//                            console.log(find_impassable[k].id);
                             var find_impassable_id = find_impassable[k].id;
                             var stringify_find_impassable_id = find_impassable_id.toString();
                             var sfi_id = stringify_find_impassable_id.split("_");
@@ -1349,9 +1350,9 @@
                     
                     var k;
                     var l;
-                    var pseudo_array_length_01 = 24;
+                    var pseudo_array_length_01 = 17;
                     for(k = 0, l = 0;k < find_impassable.length, l < pseudo_array_length_01; k++, l++){
-                            console.log(find_impassable[k].id);
+//                            console.log(find_impassable[k].id);
                             var find_impassable_id = find_impassable[k].id;
                             var stringify_find_impassable_id = find_impassable_id.toString();
                             var sfi_id = stringify_find_impassable_id.split("_");
@@ -1416,13 +1417,9 @@
                     
                     /////////////////////////////////////////////////////////////////////////////
                     /////////////////////////////////////////////////////////////////////////////
-                    
-                    
-                
+                                    
                 }//End keyCode W up movement             
             }//End function for input
             
             //Necessary for receiving keypress information
-            document.addEventListener('keydown', character_movement, false);
-            
-            
+            document.addEventListener('keydown', character_movement, false);            
