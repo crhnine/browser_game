@@ -12,3 +12,8 @@ Things that need to be done:
 6. Place in coordinates for random encounters and then build the turn-based battle screen. Random number generator for encounters.
 7. Either begin artwork myself or try to assemble a team to work passionately on the art style or theme they would enjoy working on. 
 8. Begin plan to keep character on or near middle of screen. Most likely the easiest way to do this would be to on key press scroll 25px in the same direction. 
+
+
+11.17.16
+
+Need to work on setting timed intervals for npc movement. Further information is located within the npc logic file (js).
