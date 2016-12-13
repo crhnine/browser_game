@@ -1,7 +1,7 @@
 // JavaScript source code
 // <!-- 11.16.16 -->
            //Player Starting point subject to be changed based on map or random selection between a few points to possibly add challenge.
-           var initial_spawn = document.getElementById('grid_3_6_B');
+           var initial_spawn = document.getElementById('grid_2_8_B');
            initial_spawn.className = "character_placement red_background";
            
            //Preparation for movement
@@ -58,8 +58,8 @@
                     var split_original_placement = original_placement.split("_");
                     //Assign each part of the original placement id to separate parts.
                     //Grid is unnecessary
-                    var sop_row = split_original_placement[1];//1, 2, 3, or 4
-                    var sop_column = split_original_placement[2];//1, 2, 3, or 4
+                    var sop_row = split_original_placement[1];//1, 2, 3, or 4...
+                    var sop_column = split_original_placement[2];//1, 2, 3, or 4...
                     var sop_letter = split_original_placement[3];//A, B, C, or D
                     //No_inner
                     var original_character_placement_id = sop_row + sop_column + sop_letter;
@@ -193,6 +193,12 @@
                             var change_original = document.getElementById(original_placement);
                             var change_new = document.getElementById(go_to_new_location);
                             
+                                    change_new_classes = change_new.classList;
+                                    console.log("The list of all classes in the supposed new placement: " + change_new_classes);
+                                    console.log(change_new_classes[0]);
+                                    console.log(change_new_classes[1]);
+                                    console.log(change_new_classes.length);
+                            
                             console.log("Comparing. String_new_placement = " + string_new_placement + "String_current_impassable_location = " + string_current_impassable_location);
                             console.log(typeof(string_new_placement) + "  " + typeof(string_current_impassable_location));
                             var string_comparison = string_current_impassable_location.localeCompare(string_new_placement);
@@ -205,7 +211,22 @@
 
                                 }
                                 else{
-                                change_new.className = "character_placement";
+
+                                    /*
+                                     * If new location has more than one class find out what those classes are and then set new location to those classes
+                                     * 
+                                     * change_new_classes = change_new.classList;
+                                     * console.log(change_new_classes);
+                                     * console.log(change_new_classes.length);
+                                     * 
+                                     * change_new.className = change_new_classes;
+                                     * 
+                                     * 
+                                     */
+                                    //Instead of hard coding the new class we need the program to decide to keep this coordinate's class how it oringially was
+
+                                    
+                                    change_new.className = "character_placement";
                                 }
                                 console.log("The conditional on D to C is stating that the impassable array has the value of the next coordinate somewhere.");
                             }
@@ -216,9 +237,10 @@
                                     change_original.className = "character_placement red_background";
                                     
                                 }else{
+                                    //Instead of hard coding the new class we need the program to decide to keep this coordinate's class how it oringially was
                                 change_original.className = "character_placement";
-                                change_new.className = "character_placement red_background";
                                 
+                                change_new.className = "character_placement red_background";                              
                                 console.log("We are still waiting to see if impassable locations will be detected...");
                                 }
                             }
@@ -737,7 +759,7 @@
                 
                 keyCode_down:
                 if(e.keyCode === 83){ //keyCode_S Move_down
-                    //
+                    //if(e.keyCode === 83)
                     //keyCode_down original location
                     //
                     //keyCode_A find current container with red_background class.

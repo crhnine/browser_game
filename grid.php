@@ -106,6 +106,12 @@ $(function (){
         background-size: 50px 65px;
     }
     
+    .npc_location_001{
+               
+        background-image: url('img/boss_man_01.png');
+        background-size: 50px 65px;
+    }
+    
 
     </style>
     <link href="styles/custom.css" rel='stylesheet' type='text/css' />

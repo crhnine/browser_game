@@ -1,5 +1,5 @@
 // JavaScript source code
-<!-- 11.16.16 -->
+// 11.16.16 
 
 
 
@@ -19,8 +19,8 @@ function interaction(e){
         }
     
     }
-    
-
 }
+
+
 
 document.addEventListener('keydown', interaction, false);
